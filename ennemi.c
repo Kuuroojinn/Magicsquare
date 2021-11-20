@@ -1,6 +1,9 @@
-#include <stdio.h>
 #include <ncurses.h>
 #include <assert.h>
+
+
+/* differents types d'ennemis qui pourront exister
+ * en plusieurs instances sur la map ? */
 
 struct ennemi1{
 	int pv = 100;
@@ -19,6 +22,4 @@ struct ennemi3{
 	int xe = ;
 	int ye = ;
 }
-
-
 
