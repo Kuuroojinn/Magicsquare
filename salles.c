@@ -7,7 +7,7 @@ const int VIDE = 0;
 const int JOUEUR = 1;
 const int MUR = 8;
 const int ENNEMI = -1;
-const int BLOC = 4; 
+const int BLOC = 4;
 
 
 
