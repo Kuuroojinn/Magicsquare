@@ -5,7 +5,7 @@
 
 const int VIDE;
 const int JOUEUR;
-const int MUR;
+const int MUR;  // TODO : prévoir différents types de murs pour l'affichage
 const int ENNEMI;
 const int BLOC;
 
@@ -17,7 +17,7 @@ struct salle
 	int pos_y;
 	int longueur;
 	int largeur;
-}
+};
 
 /* Affiche la salle à l'écran */  // ou la transfère à map ?
 void affiche_salle(struct salle s);

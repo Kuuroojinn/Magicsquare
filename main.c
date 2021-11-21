@@ -12,7 +12,7 @@ int main()
 	salle1.longueur = 12;
 	salle1.largeur = 16;
 
-	affiche_salle(salle1);
-
+	// affiche_salle(salle1);
+	
 	return 0;
 }
