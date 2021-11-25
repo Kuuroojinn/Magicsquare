@@ -15,8 +15,7 @@ const int BLOC = 4;
 // TODO : à mettre dans un autre fichier (?)
 
 /* récupère des infos sur l'écran du joueur
- * pour configurer l'affichage de la map 
- * et pour debugger */
+ * pour configurer l'affichage de la map */
 void scr_setup()
 {
     int scr_lin;  // taille écran : lignes
@@ -24,28 +23,42 @@ void scr_setup()
 
     // récupère les dimensions de l'écran
     getmaxyx(stdscr, scr_lin, scr_col);
+    return;
+}
 
-    // debug
+
+void wait_q()
+{
+    char c = 'a';
+        while (c != 'q')
+        c = getch();
+    return;
+}
+
+
+/* affiche la taille de l'écran en bas */
+void debug_scr_size()
+{
+    int scr_lin;  // taille écran : lignes
+    int scr_col;  // et colonnes
+    // récupère les dimensions de l'écran
+    getmaxyx(stdscr, scr_lin, scr_col);
     move(scr_lin - 2, 1);
     printw("DEBUG : scr_lin = %d ; scr_col = %d", scr_lin, scr_col);
-    move(scr_lin -1, 1);
-    printw("DEBUG : appuyer sur q pour quitter");
-    refresh();
-
-    return;
 }
 
 
 
-
-
-/* sert au debug : affiche en bas les valeurs des variables */
-void debug()
+/* sert au debug : affiche l'input (int) en bas */
+void debug_int(int input)
 {
-    // TODO : afficher en bas...
+    int scr_lin, scr_col;
+    getmaxyx(stdscr, scr_lin, scr_col);
+    move(scr_lin -1, 1);
+    printw("DEBUG : %d", input);
+    refresh();
     return;
 }
-
 
 
 
@@ -61,69 +74,86 @@ const char char_joueur = 'o';
 const char char_erreur = '?';
 
 
+/* affiche le caractère correspondant à val
+ * aux coordonnées lin, col;
+ * TODO : à compléter plus tard */
+void affiche_char_val(int val, int lin, int col)
+{
+    if (val == VIDE)
+    {
+        mvaddch(lin, col, char_vide);
+    }
+    else if (val == MUR)  // TODO : à changer pour les diff. murs
+    {
+        mvaddch(lin, col, char_mur);
+    }
+    else if (val == JOUEUR)
+    {
+        mvaddch(lin, col, char_joueur);
+    }
+    else  // erreur
+    {
+        mvaddch(lin, col, char_erreur);
+    }
+}
+
+
 
 
 /* affiche la map au centre de l'écran. 
  * Dimensions : map_lin lignes, map_col colonnes.
  * Attention : la taille du terminal ne doit pas varier */
-
-void affiche_map(int map[3][5], int map_lin, int map_col)
+void affiche_map(int map[32][32], int map_lin, int map_col)
 {
 
-    /* calcul du placement de la map sur l'écran */
-
-    int start_lin;   // coordonnées du coin supérieur
-    int start_col;   // gauche de la map dans le terminal
-
+    /* calcul du placement de la map sur l'écran : */
     int scr_lin, scr_col;
     getmaxyx(stdscr, scr_lin, scr_col);
 
+    // coordonnées du coin supérieur gauche de la map
+    int start_lin, start_col;
     start_lin = (scr_lin - map_lin) / 2;
     start_col = (scr_col - map_col) / 2;
+    
 
-    // DEBUG
-    char c = 'a';
-    while (c != 'q')
-    {
-        c = getch();
-        debug();
-    }
-
+    int current_lin = start_lin;  // sera itéré pour placer le caractère
+    int current_col = start_col;  // à cet emplacement sur l'écran
 
     /* affichage des éléments de la map */
-
-    for (int lin = start_lin; lin < (start_lin + scr_lin); lin++)  // lignes
+    for (int lin = 0; lin < map_lin; lin++)  // lignes
     {
-        for (int col = start_col; col < start_col + scr_col; col++)  // colonnes
+        for (int col = 0; col < map_col; col++)  // colonnes
         {
-            /* gère les différents éléments de la map ;
-             * rempli de placeholders pour le moment */
-
             int tmp = map[lin][col];  // case actuelle
 
-            if (tmp == VIDE)
-            {
-                // ou ne rien mettre ?
-                mvaddch(lin, col, char_vide);
-            }
-            else if (tmp == MUR)  // TODO : à changer pour les diff. murs
-            {
-                mvaddch(lin, col, char_mur);
-            }
-            else if (tmp == JOUEUR)
-            {
-                mvaddch(lin, col, char_joueur);
-            }
-            else  // erreur
-            {
-                mvaddch(lin, col, char_erreur);
-            }
+            affiche_char_val(tmp, current_lin, current_col);
 
+            current_col++;  // colonne suivante
         }
+
+        current_lin++;  // ligne suivante
+        current_col = start_col;  // revenir au début
     }
     refresh();
     return;
 }
+
+
+/* remplit une map (lin * col) de VIDE */
+void initialise_map(int map[32][32])
+{
+    for (int i = 0; i < 32; i++)
+    {
+        for (int j = 0; j < 32; j++)
+        {
+            map[i][j] = VIDE;
+        }
+    }
+    return;
+}
+
+
+
 
 // test pour le moment
 int main()
@@ -134,23 +164,27 @@ int main()
 
     // noecho();  // masque l'input utilisateur
 
-    scr_setup();
+    // scr_setup();
 
     // démonstration seulement
-    int test_map1[3][5] = {
-        {JOUEUR, VIDE, MUR, MUR, MUR},
-        {VIDE, VIDE, VIDE, VIDE, MUR},
-        {MUR, MUR, VIDE, VIDE, MUR}
-    };
+    int test_lin = 32;
+    int test_col = 32;
+
+    int test_map1[test_lin][test_col];
+
+    initialise_map(test_map1);
+
+    // test_map1[1][2] = JOUEUR;
     
-    affiche_map(test_map1, 3, 5);
+
+    affiche_map(test_map1, 32, 32);
 
     // debug pour la taille du terminal
     char c = 'a';
     while (c != 'q')
     {
+        debug_scr_size();
         c = getch();
-        scr_setup();
     }    
 
     endwin();
