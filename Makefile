@@ -2,9 +2,12 @@
 # que des modifs seront ajoutees
 
 
+testmap:
+	gcc -o test/testmap source/map.c -lncurses
+
 # le jeu final
 jeu: main.o map.o salles.o
-	gcc -o jeu main.o map.o salles.o 
+	gcc -o jeu source/main.o map.o salles.o 
 
 main.o: main.c
 	gcc -o main.o -c main.c -lncurses

@@ -26,7 +26,7 @@ void scr_setup()
     return;
 }
 
-
+/* pour debugger : attendre */
 void wait_q()
 {
     char c = 'a';
@@ -70,7 +70,7 @@ void debug_int(int input)
 const char char_vide = '#';
 const char char_mur = '=';
 // TODO : char_mur1, mur2, etc. pour les différents murs
-const char char_joueur = 'o';
+const char char_joueur = 'O';
 const char char_erreur = '?';
 
 
@@ -103,14 +103,14 @@ void affiche_char_val(int val, int lin, int col)
 /* affiche la map au centre de l'écran. 
  * Dimensions : map_lin lignes, map_col colonnes.
  * Attention : la taille du terminal ne doit pas varier */
-void affiche_map(int map[32][32], int map_lin, int map_col)
+void affiche_map(int map[32][64], int map_lin, int map_col)
 {
 
     /* calcul du placement de la map sur l'écran : */
     int scr_lin, scr_col;
     getmaxyx(stdscr, scr_lin, scr_col);
 
-    // coordonnées du coin supérieur gauche de la map
+    // coordonnées du coin supérieur gauche de la map dans l'écran
     int start_lin, start_col;
     start_lin = (scr_lin - map_lin) / 2;
     start_col = (scr_col - map_col) / 2;
@@ -139,12 +139,12 @@ void affiche_map(int map[32][32], int map_lin, int map_col)
 }
 
 
-/* remplit une map (lin * col) de VIDE */
-void initialise_map(int map[32][32])
+/* remplit une map (dimensions : lin par col) de VIDE */
+void initialise_map(int map[32][64], int lin, int col)
 {
-    for (int i = 0; i < 32; i++)
+    for (int i = 0; i < lin; i++)  // lignes
     {
-        for (int j = 0; j < 32; j++)
+        for (int j = 0; j < col; j++)  // colonnes
         {
             map[i][j] = VIDE;
         }
@@ -168,16 +168,16 @@ int main()
 
     // démonstration seulement
     int test_lin = 32;
-    int test_col = 32;
+    int test_col = 64;
 
     int test_map1[test_lin][test_col];
 
-    initialise_map(test_map1);
+    initialise_map(test_map1, test_lin, test_col);
 
-    // test_map1[1][2] = JOUEUR;
+    test_map1[1][2] = JOUEUR;
     
 
-    affiche_map(test_map1, 32, 32);
+    affiche_map(test_map1, test_lin, test_col);
 
     // debug pour la taille du terminal
     char c = 'a';
