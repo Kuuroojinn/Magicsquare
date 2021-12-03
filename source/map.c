@@ -10,9 +10,19 @@ const int ENNEMI = -1;
 const int BLOC = 4;
 
 
+// map : 32 lignes, 128 colonnes
 
 
-// TODO : à mettre dans un autre fichier (?)
+/* pour pouvoir s'en servir ci-dessous et le changer facilement
+ * NB : difficile d'utiliser ACS_QQCH ici... à voir
+ * TODO : à déplacer à un meilleur endroit */
+const char char_vide = '#';
+const char char_mur = '=';
+// TODO : char_mur1, mur2, etc. pour les différents murs
+const char char_joueur = 'O';
+const char char_erreur = '?';
+
+
 
 /* récupère des infos sur l'écran du joueur
  * pour configurer l'affichage de la map */
@@ -26,7 +36,7 @@ void scr_setup()
     return;
 }
 
-/* pour debugger : attendre */
+/* pour debugger : attendre qu'on appuie sur q */
 void wait_q()
 {
     char c = 'a';
@@ -48,7 +58,6 @@ void debug_scr_size()
 }
 
 
-
 /* sert au debug : affiche l'input (int) en bas */
 void debug_int(int input)
 {
@@ -59,19 +68,6 @@ void debug_int(int input)
     refresh();
     return;
 }
-
-
-
-
-
-/* pour pouvoir s'en servir ci-dessous et le changer facilement
- * NB : difficile d'utiliser ACS_QQCH ici... à voir
- * TODO : à déplacer à un meilleur endroit */
-const char char_vide = '#';
-const char char_mur = '=';
-// TODO : char_mur1, mur2, etc. pour les différents murs
-const char char_joueur = 'O';
-const char char_erreur = '?';
 
 
 /* affiche le caractère correspondant à val
@@ -98,12 +94,10 @@ void affiche_char_val(int val, int lin, int col)
 }
 
 
-
-
 /* affiche la map au centre de l'écran. 
  * Dimensions : map_lin lignes, map_col colonnes.
  * Attention : la taille du terminal ne doit pas varier */
-void affiche_map(int map[32][64], int map_lin, int map_col)
+void affiche_map(int map[32][128], int map_lin, int map_col)
 {
 
     /* calcul du placement de la map sur l'écran : */
@@ -140,7 +134,7 @@ void affiche_map(int map[32][64], int map_lin, int map_col)
 
 
 /* remplit une map (dimensions : lin par col) de VIDE */
-void initialise_map(int map[32][64], int lin, int col)
+void initialise_map(int map[32][128], int lin, int col)
 {
     for (int i = 0; i < lin; i++)  // lignes
     {
@@ -151,8 +145,6 @@ void initialise_map(int map[32][64], int lin, int col)
     }
     return;
 }
-
-
 
 
 // test pour le moment
@@ -168,7 +160,7 @@ int main()
 
     // démonstration seulement
     int test_lin = 32;
-    int test_col = 64;
+    int test_col = 128;
 
     int test_map1[test_lin][test_col];
 

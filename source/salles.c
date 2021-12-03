@@ -18,7 +18,8 @@ void affiche_salle(struct salle s)
 
 	for (int j = 1; j< s.longueur; j = j+1)
 	{
-		mvprintw(1, 0, "---");
+		mvprintw(1, 0, "---"); 
+	}
 	for (int i = 1; i< s.largeur; i = i+1)
 	{
 		printw("--");
@@ -27,3 +28,7 @@ void affiche_salle(struct salle s)
 	return;
 }
 
+void ajoute_salle(struct salle s)
+{
+
+}
