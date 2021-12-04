@@ -1,6 +1,6 @@
 #include <ncurses.h>
 #include <string.h>
-#include "salles.h"
+//#include "salles.h"
 
 
 const int VIDE = 0;
@@ -10,19 +10,9 @@ const int ENNEMI = -1;
 const int BLOC = 4;
 
 
-// map : 32 lignes, 128 colonnes
 
 
-/* pour pouvoir s'en servir ci-dessous et le changer facilement
- * NB : difficile d'utiliser ACS_QQCH ici... à voir
- * TODO : à déplacer à un meilleur endroit */
-const char char_vide = '#';
-const char char_mur = '=';
-// TODO : char_mur1, mur2, etc. pour les différents murs
-const char char_joueur = 'O';
-const char char_erreur = '?';
-
-
+// TODO : à mettre dans un autre fichier (?)
 
 /* récupère des infos sur l'écran du joueur
  * pour configurer l'affichage de la map */
@@ -36,7 +26,7 @@ void scr_setup()
     return;
 }
 
-/* pour debugger : attendre qu'on appuie sur q */
+/* pour debugger : attendre */
 void wait_q()
 {
     char c = 'a';
@@ -54,8 +44,9 @@ void debug_scr_size()
     // récupère les dimensions de l'écran
     getmaxyx(stdscr, scr_lin, scr_col);
     move(scr_lin - 2, 1);
-    printw("DEBUG : scr_lin = %d ; scr_col = %d", scr_lin, scr_col);
+    printw("DEBUG : scr_lin = %d ; scr_col = %d\n", scr_lin, scr_col);
 }
+
 
 
 /* sert au debug : affiche l'input (int) en bas */
@@ -68,6 +59,19 @@ void debug_int(int input)
     refresh();
     return;
 }
+
+
+
+
+
+/* pour pouvoir s'en servir ci-dessous et le changer facilement
+ * NB : difficile d'utiliser ACS_QQCH ici... à voir
+ * TODO : à déplacer à un meilleur endroit */
+const char char_vide = '#';
+const char char_mur = '=';
+// TODO : char_mur1, mur2, etc. pour les différents murs
+const char char_joueur = 'O';
+const char char_erreur = '?';
 
 
 /* affiche le caractère correspondant à val
@@ -94,10 +98,12 @@ void affiche_char_val(int val, int lin, int col)
 }
 
 
+
+
 /* affiche la map au centre de l'écran. 
  * Dimensions : map_lin lignes, map_col colonnes.
  * Attention : la taille du terminal ne doit pas varier */
-void affiche_map(int map[32][128], int map_lin, int map_col)
+void affiche_map(int map[32][64], int map_lin, int map_col)
 {
 
     /* calcul du placement de la map sur l'écran : */
@@ -134,7 +140,7 @@ void affiche_map(int map[32][128], int map_lin, int map_col)
 
 
 /* remplit une map (dimensions : lin par col) de VIDE */
-void initialise_map(int map[32][128], int lin, int col)
+void initialise_map(int map[32][64], int lin, int col)
 {
     for (int i = 0; i < lin; i++)  // lignes
     {
@@ -145,6 +151,8 @@ void initialise_map(int map[32][128], int lin, int col)
     }
     return;
 }
+
+
 
 
 // test pour le moment
