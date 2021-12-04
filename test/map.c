@@ -182,7 +182,7 @@ int main()
 
     // debug pour la taille du terminal
     int c = -1;  //c doit être sous la forme d'un int pour être comparé aux touches directionnelles (on peut le laisser comme ça pour la map, ça dérange pas
-    while (c != KEY_UP) //Marche aussi avec KEY_DOWN, KEY_LEFT, KEY_RIGHT 
+    while (c != KEY_UP) //Marche aussi avec KEY_DOWN, KEY_LEFT, KEY_RIGHT ou les touches sous la forme 'q' (elles sont comparées en tant que int du coup c'est bon)
     {
         //debug_scr_size(); //Je l'ai caché vu que c'était pas utile pour tester la fonction
         c = getch();
