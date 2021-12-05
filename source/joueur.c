@@ -1,15 +1,11 @@
-#include <ncurses.h>
-#include <assert.h>
+#include "joueur.h"
+
+/* Définit tout ce qui est lié au joueur. */
 
 
 
-struct joueur
-{
-	// sur la map
-	int pos_lin;
-	int pos_col;
-	int dir;  // direction du joueur
-
-	// pour les combats, à chager plus tard
-	int pv = 1000;
-};
+/* directions */
+const int HAUT = 1;
+const int BAS = 2;
+const int GAUCHE = 3;
+const int DROITE = 4;
