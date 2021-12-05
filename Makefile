@@ -1,23 +1,24 @@
-# a changer au fur et a mesure
-# que des modifs seront ajoutees
+# à changer au fur et à mesure
+# que des modifs seront faites
 
-
-testmap:
-	gcc -o test/testmap source/map.c -lncurses
 
 # le jeu final
-jeu: main.o map.o salles.o
-	gcc -o jeu source/main.o map.o salles.o 
+main: main.o map.o joueur.o
+	gcc main.o map.o joueur.o -o main -lncurses
 
-main.o: main.c
-	gcc -o main.o -c main.c -lncurses
+main.o: source/main.c source/joueur.h source/map.h
+	gcc -c source/main.c
 
-map.o: map.c
-	gcc -o map.o -c map.c -lncurses
+map.o: source/map.c
+	gcc -c source/map.c
 
-salles.o: salles.c salles.h
-	gcc -o salles.o -c salles.c
+joueur.o: source/joueur.c
+	gcc -c source/joueur.c
+
+# pas utile pour le moment
+#salles.o: salles.c 
+#	gcc -c salles.c
 
 clean:
 	rm -f *.o
-	rm -f jeu
+	rm -f main

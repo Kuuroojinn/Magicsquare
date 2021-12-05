@@ -5,26 +5,19 @@
 /* Déplacements gérés dans ce fichier */
 
 
-/* directions */
-const int HAUT = 1;
-const int BAS = 2;
-const int GAUCHE = 3;
-const int DROITE = 4;
-
-
 /* renvoie true si élément en face du joueur n'est pas VIDE.
  * map : lin lignes, col colonnes*/
-bool collision (struct joueur j, int map[32][128], int map_lin, int map_col)
+bool elt_en_face (struct joueur j, int map[32][128], int map_lin, int map_col)
 {
 	// cas où joueur sur bord de la map
 	if (j.pos_col == 0 || j.pos_col == map_col - 1)
-		return false;
+		return true;
 
 	else if (j.pos_lin == 0 || j.pos_lin == map_lin - 1)
-		return false;
+		return true;
 
 
-	// teste la case en face
+	// teste la case en face du joueur
 	if (j.dir == HAUT && map[j.pos_lin - 1][j.pos_col] != VIDE)
 		return true;
 
@@ -40,3 +33,5 @@ bool collision (struct joueur j, int map[32][128], int map_lin, int map_col)
 	else  // rien en face
 		return false;
 }
+
+
