@@ -8,6 +8,7 @@ int main()
 	initscr();
     noecho();  // masque l'input utilisateur
 	clear();
+	keypad(stdscr, TRUE);
 
 	// pas encore utile
 	struct joueur j;
@@ -26,7 +27,7 @@ int main()
 	// gameloop temporaire
     while (true){
 		int c = -1;  //c doit être sous la forme d'un int pour être comparé aux touches directionnelles (on peut le laisser comme ça pour la map, ça dérange pas
-		while (c != KEY_UP) //Marche aussi avec KEY_DOWN, KEY_LEFT, KEY_RIGHT 
+		while (c != 'q') //Marche aussi avec KEY_DOWN, KEY_LEFT, KEY_RIGHT 
 		{
         //debug_scr_size(); //Je l'ai caché vu que c'était pas utile pour tester la fonction
 			c = getch();
@@ -34,8 +35,10 @@ int main()
 		}    //Ici ferme la map dès qu'on presse la touche fléche du haut
 		//On va donc surement réutliiser cette partie du code pour le déplacement du personnage
 		char d;
+		echo();
 		printw("\nVoulez vous vraiment quitter ? [Y/n]");
 		scanw("%s",&d);
+		noecho();
 		if (d == 'Y') {
 			endwin();
 			return 0;
