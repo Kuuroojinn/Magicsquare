@@ -23,6 +23,7 @@ const int BLOC = 7;
  * NB : difficile d'utiliser ACS_QQCH ici... à voir
  * TODO : à déplacer à un meilleur endroit */
 const char CHR_VIDE = '.';
+//#define CHR_VIDE ACS_HLINE //N'affiche pas les bons charactères donc a oublier pour le moment
 const char CHR_MUR = '=';
 const char CHR_JOUEUR_HAUT = '^';
 const char CHR_JOUEUR_BAS = 'v';
