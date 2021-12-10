@@ -142,3 +142,4 @@ void initialise_map(int map[MAP_LIN][MAP_COL])
         }
     }
     return;
+}
