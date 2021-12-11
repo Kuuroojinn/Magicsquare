@@ -1,6 +1,5 @@
 #include <ncurses.h>
 #include <string.h>
-//#include "salles.h"
 
 
 // map contient 32 lignes et 128 colonnes
@@ -22,38 +21,14 @@ const int BLOC = 7;
 /* pour affiche_char_val() ;
  * NB : difficile d'utiliser ACS_QQCH ici... à voir
  * TODO : à déplacer à un meilleur endroit */
-const char CHR_VIDE = '.';
-//#define CHR_VIDE ACS_HLINE //N'affiche pas les bons charactères donc a oublier pour le moment
+//const char CHR_VIDE = '.';
+#define CHR_VIDE ACS_BLOCK
 const char CHR_MUR = '=';
 const char CHR_JOUEUR_HAUT = '^';
 const char CHR_JOUEUR_BAS = 'v';
 const char CHR_JOUEUR_GAUCHE = '<';
 const char CHR_JOUEUR_DROITE = '>';
 const char CHR_ERREUR = '?';
-
-
-// TODO : à mettre dans un autre fichier (?)
-
-/* récupère des infos sur l'écran du joueur
- * pour configurer l'affichage de la map */
-void scr_setup()
-{
-    int scr_lin;  // taille écran : lignes
-    int scr_col;  // et colonnes
-
-    // récupère les dimensions de l'écran
-    getmaxyx(stdscr, scr_lin, scr_col);
-    return;
-}
-
-/* pour pouvoir s'en servir ci-dessous et le changer facilement
- * NB : difficile d'utiliser ACS_QQCH ici... à voir
- * TODO : à déplacer à un meilleur endroit */
-const char char_vide = '#';
-const char char_mur = '=';
-// TODO : char_mur1, mur2, etc. pour les différents murs
-const char char_joueur = 'O';
-const char char_erreur = '?';
 
 
 /* affiche le caractère correspondant à val
@@ -92,10 +67,8 @@ void affiche_char_val(int val, int lin, int col)
 }
 
 
-
 /* affiche la map au centre de l'écran. */
 void affiche_map(int map[MAP_LIN][MAP_COL])
-
 {
     /* calcul du placement de la map sur l'écran : */
     int scr_lin, scr_col;
@@ -130,10 +103,48 @@ void affiche_map(int map[MAP_LIN][MAP_COL])
 }
 
 
+/* affiche une bordure autour de la map */
+void affiche_bordure()
+{
+	 /* calcul du placement de la map sur l'écran : */
+    int scr_lin, scr_col;
+    getmaxyx(stdscr, scr_lin, scr_col);
+
+    // coordonnées du coin supérieur gauche de la map dans l'écran
+    int start_lin, start_col;
+    start_lin = (scr_lin - MAP_LIN) / 2;
+    start_col = (scr_col - MAP_COL) / 2;
+    
+    
+    // haut
+    move(start_lin - 1, start_col);
+    hline(ACS_HLINE, MAP_COL);  // trace la ligne
+
+    // bas
+    move(start_lin + MAP_LIN, start_col);
+    hline(ACS_HLINE, MAP_COL);
+
+    //gauche
+    move(start_lin, start_col - 1);
+    vline(ACS_VLINE, MAP_LIN);
+
+    // droite
+    move(start_lin, start_col + MAP_COL);
+    vline(ACS_VLINE, MAP_LIN);
+
+    // coins
+    mvaddch(start_lin - 1, start_col - 1, ACS_ULCORNER);
+    mvaddch(start_lin - 1, start_col + MAP_COL, ACS_URCORNER);
+    mvaddch(start_lin + MAP_LIN, start_col - 1, ACS_LLCORNER);
+    mvaddch(start_lin + MAP_LIN, start_col + MAP_COL, ACS_LRCORNER);
+    
+
+    refresh();
+    return;
+}
 
 /* remplit une map de VIDE */
 void initialise_map(int map[MAP_LIN][MAP_COL])
-
 {
     for (int i = 0; i < MAP_LIN; i++)  // lignes
     {

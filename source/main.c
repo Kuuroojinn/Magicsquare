@@ -1,14 +1,24 @@
 #include <ncurses.h>
+#include <locale.h>  // permet d'utiliser LC_ALL
 #include "map.h"
 #include "joueur.h"
 
 
 int main()
 {
+	// démarrage et réglage de ncurses
+	clear();
 	initscr();
     noecho();  // masque l'input utilisateur
-	clear();
-	keypad(stdscr, TRUE);
+	keypad(stdscr, TRUE);  // permet d'utiliser le clavier
+	setlocale(LC_ALL, "");  // permet d'utiliser ACS_BLOCK, etc.
+
+
+	// récupération de la taille de l'écran
+	int SCR_LIN;  // taille écran : lignes
+    int SCR_COL;  // et colonnes
+    getmaxyx(stdscr, SCR_LIN, SCR_COL);
+
 
 	// pas encore utile
 	struct joueur j;
@@ -20,30 +30,33 @@ int main()
 	// démonstration seulement	
     int test_map1[MAP_LIN][MAP_COL];
     initialise_map(test_map1);
-    test_map1[MAP_LIN/2][MAP_COL/2] = JOUEUR_BAS;
+    test_map1[j.pos_lin][j.pos_col] = j.dir;
 
-	affiche_map(test_map1);
+    affiche_map(test_map1);
+	affiche_bordure();
+
 
 	// gameloop temporaire
-    while (true){
-		int c = -1;  //c doit être sous la forme d'un int pour être comparé aux touches directionnelles (on peut le laisser comme ça pour la map, ça dérange pas
-		while (c != 'q') //Marche aussi avec KEY_DOWN, KEY_LEFT, KEY_RIGHT 
-		{
-        //debug_scr_size(); //Je l'ai caché vu que c'était pas utile pour tester la fonction
-			c = getch();
-			//printw("%d",c); //affiche la touche préssée sous la forme d'un int 
-		}    //Ici ferme la map dès qu'on presse la touche fléche du haut
+
+	int c = -1;  //c doit être sous la forme d'un int pour être 
+	             // comparé aux touches directionnelles 
+	             // (on peut le laisser comme ça pour la map, ça dérange pas
+
+	while (c != 'q') //Marche aussi avec KEY_DOWN, KEY_LEFT, KEY_RIGHT 
+	{
+		c = getch();
+	}
+
 		//On va donc surement réutliiser cette partie du code pour le déplacement du personnage
+		/*
 		char d;
-		echo();
 		printw("\nVoulez vous vraiment quitter ? [Y/n]");
 		scanw("%s",&d);
-		noecho();
 		if (d == 'Y') {
 			endwin();
 			return 0;
 		}
-	}
+		*/
 
     endwin();
 }
