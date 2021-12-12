@@ -1,26 +1,23 @@
-#ifndef GRILLE_H
-#define GRILLE_H
+#ifndef SALLE_H
+#define SALLE_H
 
-/* Codes numériques pour désigner les differents éléments du terrain */
+#include "map.h"
 
-const int VIDE;
-const int JOUEUR;
-const int MUR;  // TODO : prévoir différents types de murs pour l'affichage
-const int ENNEMI;
-const int BLOC;
+const int SAL_LIN;  // dimensions standard d'une salle
+const int SAL_COL;  // (bord extérieur INCLUS)
 
 
-/* salle représentée par un struct qui pourra évoluer */
+/* représentation d'une salle */
 struct salle
 {
-	int pos_x;  // nécessaire pour la positionner sur la map
-	int pos_y;
-	int longueur;
-	int largeur;
+	int pos_lin;  // nécessaire pour la positionner sur la map
+	int pos_col;
+	// int contenu[SAL_LIN][SAL_COL]
+	int contenu[8][8];  // ATTENTION : valeurs hardcodées car sinon erreur 
 };
 
-/* Affiche la salle à l'écran */  // ou la transfère à map ?
-void affiche_salle(struct salle s);
+/* ajoute les éléments de la salle dans la map */
+void ajoute_salle(struct salle s, int map[MAP_LIN][MAP_COL]);
 
 
 #endif

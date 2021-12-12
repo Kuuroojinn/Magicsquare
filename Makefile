@@ -3,21 +3,20 @@
 
 
 # le jeu final
-main: main.o map.o joueur.o
-	gcc main.o map.o joueur.o -o main -lncurses
+main: main.o map.o joueur.o salles.o
+	gcc main.o map.o salles.o joueur.o -o main -lncurses
 
-main.o: source/main.c source/joueur.h source/map.h
+main.o: source/main.c source/map.h source/salles.h source/joueur.h
 	gcc -c source/main.c
 
 map.o: source/map.c
 	gcc -c source/map.c
 
+salles.o: source/salles.c 
+	gcc -c source/salles.c
+
 joueur.o: source/joueur.c
 	gcc -c source/joueur.c
-
-# pas utile pour le moment
-#salles.o: salles.c 
-#	gcc -c salles.c
 
 clean:
 	rm -f *.o

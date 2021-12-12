@@ -7,10 +7,10 @@ const int MAP_LIN = 32;
 const int MAP_COL = 128;
 
 
-/* contenu de la map */
+/* éléments que peut contenir la map */
 const int VIDE = 0;
 const int JOUEUR_HAUT = 1;  // différentes directions du joueur
-const int JOUEUR_BAS = 2;  // en fonction de joueur.dir
+const int JOUEUR_BAS = 2;   // en fonction de joueur.dir
 const int JOUEUR_GAUCHE = 3;
 const int JOUEUR_DROITE = 4;
 const int MUR = 5;
@@ -19,10 +19,8 @@ const int BLOC = 7;
 
 
 /* pour affiche_char_val() ;
- * NB : difficile d'utiliser ACS_QQCH ici... à voir
  * TODO : à déplacer à un meilleur endroit */
-//const char CHR_VIDE = '.';
-#define CHR_VIDE ACS_BLOCK
+const char CHR_VIDE = '.';
 const char CHR_MUR = '=';
 const char CHR_JOUEUR_HAUT = '^';
 const char CHR_JOUEUR_BAS = 'v';
@@ -32,8 +30,7 @@ const char CHR_ERREUR = '?';
 
 
 /* affiche le caractère correspondant à val
- * aux coordonnées lin, col;
- * TODO : à compléter plus tard */
+ * aux coordonnées lin, col */
 void affiche_char_val(int val, int lin, int col)
 {
     if (val == VIDE)
@@ -143,7 +140,7 @@ void affiche_bordure()
     return;
 }
 
-/* remplit une map de VIDE */
+/* remplit la map de VIDE */
 void initialise_map(int map[MAP_LIN][MAP_COL])
 {
     for (int i = 0; i < MAP_LIN; i++)  // lignes

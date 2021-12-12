@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <locale.h>  // permet d'utiliser LC_ALL
 #include "map.h"
+#include "salles.h"
 #include "joueur.h"
 
 
@@ -20,19 +21,32 @@ int main()
     getmaxyx(stdscr, SCR_LIN, SCR_COL);
 
 
-	// pas encore utile
-	struct joueur j;
-	j.pos_lin = 5;
-	j.pos_col = 8;
-	j.dir = HAUT;
-	
+
+
 	
 	// démonstration seulement	
-    int test_map1[MAP_LIN][MAP_COL];
-    initialise_map(test_map1);
-    test_map1[j.pos_lin][j.pos_col] = j.dir;
+    int map1[MAP_LIN][MAP_COL];
+    initialise_map(map1);
+   	
+    // salle de test
+   	struct salle salle1 = {
+		14,
+		20,
+		{
+			{MUR, MUR, MUR, MUR, VIDE, VIDE, MUR, MUR},
+			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
+			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
+			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
+			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
+			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
+			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
+			{MUR, MUR, MUR, MUR, MUR, MUR, MUR, MUR}
+		}
+	};
 
-    affiche_map(test_map1);
+	ajoute_salle(salle1, map1);
+
+    affiche_map(map1);
 	affiche_bordure();
 
 
@@ -40,7 +54,7 @@ int main()
 
 	int c = -1;  //c doit être sous la forme d'un int pour être 
 	             // comparé aux touches directionnelles 
-	             // (on peut le laisser comme ça pour la map, ça dérange pas
+	             // (on peut le laisser comme ça pour la map, ça dérange pas)
 
 	while (c != 'q') //Marche aussi avec KEY_DOWN, KEY_LEFT, KEY_RIGHT 
 	{
