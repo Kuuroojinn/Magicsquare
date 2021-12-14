@@ -9,8 +9,8 @@ main: main.o map.o joueur.o salles.o
 main.o: source/main.c source/map.h source/salles.h source/joueur.h
 	gcc -c source/main.c
 
-map.o: source/map.c
-	gcc -c source/map.c
+map.o: source/map.c source/map.h
+	gcc -c source/map.c source/map.h
 
 salles.o: source/salles.c 
 	gcc -c source/salles.c

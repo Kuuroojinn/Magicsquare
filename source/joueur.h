@@ -2,12 +2,11 @@
 #define JOUEUR_H
 
 
-
 /* directions */
-extern const int HAUT;
-extern const int BAS;
-extern const int GAUCHE;
-extern const int DROITE;
+const int HAUT;
+const int BAS;
+const int GAUCHE;
+const int DROITE;
 
 struct joueur
 {

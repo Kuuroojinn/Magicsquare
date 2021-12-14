@@ -1,6 +1,6 @@
 #include <ncurses.h>
 #include <string.h>
-
+#include "map.h"
 
 // map contient 32 lignes et 128 colonnes
 const int MAP_LIN = 32;
@@ -8,58 +8,86 @@ const int MAP_COL = 128;
 
 
 /* éléments que peut contenir la map */
-const int VIDE = 0;
-const int JOUEUR_HAUT = 1;  // différentes directions du joueur
-const int JOUEUR_BAS = 2;   // en fonction de joueur.dir
-const int JOUEUR_GAUCHE = 3;
-const int JOUEUR_DROITE = 4;
-const int MUR = 5;
-const int ENNEMI = 6;
-const int BLOC = 7;
+//#define VIDE 0  
+//#define MUR 5
+//const int JOUEUR_HAUT = 1;  // différentes directions du joueur
+//const int JOUEUR_BAS = 2;   // en fonction de joueur.dir
+//const int JOUEUR_GAUCHE = 3;
+//const int JOUEUR_DROITE = 4;
 
 
-/* pour affiche_char_val() ;
- * TODO : à déplacer à un meilleur endroit */
+// AFFICHAGE :
+
+/* caractères pour affiche_char_val() */
 const char CHR_VIDE = '.';
-const char CHR_MUR = '=';
+const char CHR_MUR = ' ';
 const char CHR_JOUEUR_HAUT = '^';
 const char CHR_JOUEUR_BAS = 'v';
 const char CHR_JOUEUR_GAUCHE = '<';
 const char CHR_JOUEUR_DROITE = '>';
 const char CHR_ERREUR = '?';
 
+/* couleurs pour affiche_char_val() 
+ * NB : ne pas utiliser 0, ça ne marche pas */
+const int COUL_VIDE = 1;
+const int COUL_MUR = 2;
+const int COUL_JOUEUR = 3;
+
+
+/* affecte les paires de couleur à leur indice */
+void setup_couleur()
+{
+    init_pair(COUL_MUR, COLOR_BLACK, COLOR_WHITE);
+    init_pair(COUL_VIDE, COLOR_YELLOW, COLOR_GREEN);
+    init_pair(COUL_JOUEUR, COLOR_YELLOW, COLOR_RED);
+}
+
 
 /* affiche le caractère correspondant à val
  * aux coordonnées lin, col */
 void affiche_char_val(int val, int lin, int col)
 {
-    if (val == VIDE)
+    switch(val)
     {
-        mvaddch(lin, col, CHR_VIDE);
-    }
-    else if (val == MUR)
-    {
-        mvaddch(lin, col, CHR_MUR);
-    }
-    else if (val == JOUEUR_HAUT)
-    {
-        mvaddch(lin, col, CHR_JOUEUR_HAUT);
-    }
-    else if (val == JOUEUR_BAS)
-    {
-        mvaddch(lin, col, CHR_JOUEUR_BAS);
-    }
-    else if (val == JOUEUR_GAUCHE)
-    {
-        mvaddch(lin, col, CHR_JOUEUR_GAUCHE);
-    }
-    else if (val == JOUEUR_DROITE)
-    {
-        mvaddch(lin, col, CHR_JOUEUR_DROITE);
-    }
-    else  // erreur
-    {
-        mvaddch(lin, col, CHR_ERREUR);
+        case VIDE:
+            attron(COLOR_PAIR(COUL_VIDE));
+            mvaddch(lin, col, CHR_VIDE);
+            attroff(COLOR_PAIR(COUL_VIDE));
+            break;
+
+        case MUR:
+            attron(COLOR_PAIR(COUL_MUR));
+            mvaddch(lin, col, CHR_MUR);
+            attroff(COLOR_PAIR(COUL_MUR));
+            break;
+
+        case JOUEUR_HAUT:
+            attron(COLOR_PAIR(COUL_JOUEUR));
+            mvaddch(lin, col, CHR_JOUEUR_HAUT);
+            attroff(COLOR_PAIR(COUL_JOUEUR));
+            break;
+
+        case JOUEUR_BAS:
+            attron(COLOR_PAIR(COUL_JOUEUR));
+            mvaddch(lin, col, CHR_JOUEUR_BAS);
+            attroff(COLOR_PAIR(COUL_JOUEUR));
+            break;
+
+        case JOUEUR_GAUCHE:
+            attron(COLOR_PAIR(COUL_JOUEUR));
+            mvaddch(lin, col, CHR_JOUEUR_GAUCHE);
+            attroff(COLOR_PAIR(COUL_JOUEUR));
+            break;
+
+        case JOUEUR_DROITE:
+            attron(COLOR_PAIR(COUL_JOUEUR));
+            mvaddch(lin, col, CHR_JOUEUR_DROITE);
+            attroff(COLOR_PAIR(COUL_JOUEUR));
+            break;
+
+        default:  // erreur
+            mvaddch(lin, col, CHR_ERREUR);
+            break; 
     }
 }
 

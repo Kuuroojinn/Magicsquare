@@ -1,5 +1,4 @@
 #include <ncurses.h>
-#include <locale.h>  // permet d'utiliser LC_ALL
 #include "map.h"
 #include "salles.h"
 #include "joueur.h"
@@ -12,8 +11,9 @@ int main()
 	initscr();
     noecho();  // masque l'input utilisateur
 	keypad(stdscr, TRUE);  // permet d'utiliser le clavier
-	setlocale(LC_ALL, "");  // permet d'utiliser ACS_BLOCK, etc.
 
+	start_color();
+	setup_couleur();
 
 	// récupération de la taille de l'écran
 	int SCR_LIN;  // taille écran : lignes
@@ -37,14 +37,16 @@ int main()
 			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
 			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
 			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
+			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE},
 			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
 			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
-			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
-			{MUR, MUR, MUR, MUR, MUR, MUR, MUR, MUR}
+			{MUR, MUR, VIDE, MUR, MUR, MUR, MUR, MUR}
 		}
 	};
 
 	ajoute_salle(salle1, map1);
+
+	map1[16][22] = JOUEUR_HAUT;
 
     affiche_map(map1);
 	affiche_bordure();
