@@ -1,0 +1,17 @@
+Rapport du projet : (8 pages max)											\					/
+-> vrai pour n'importe quel compte-rendu de projet							 \				   /
+1) Introduction 															  \				  /
+	-> Présenter le jeu : les règles du jeu, 								   \			 /
+	-> capture d'écran															\			/
+	-> problématiques															 \		   /
+	-> 																			  |		  |
+																				  |		  |
+2) Développement :  2 ou 3														  |		  |
+	-> présenter le problème précisément
+	-> solution algorythmique proposée (extraits de code) 
+	-> étudier les algos ......
+	
+3) Conclusion / ouverture														 /			\
+	-> petit bilan -> ce qui marche et ce qui ne marche pas						/			 \
+	-> Comment continuer ? -> un projet n'est jamais terminé
+	
