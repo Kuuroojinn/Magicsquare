@@ -3,9 +3,7 @@
 #include <stdio.h>
 #include "joueur.h"  // contient le struct joueur
 
-
 /* Définit tout ce qui est lié au joueur. */
-
 
 /* directions */
 const int HAUT = 1;
@@ -13,19 +11,6 @@ const int BAS = 2;
 const int GAUCHE = 3;
 const int DROITE = 4;
 
-
-// Modifie la position du joueur en fonction de l'entrée au clavier
-void deplacement(struct joueur* j, int c) {
-	if (c == KEY_UP) {
-		j->pos_lin -= 1;
-	} else if (c == KEY_DOWN) {
-		j->pos_lin += 1;
-	} else if (c == KEY_RIGHT) {
-		j->pos_col += 1;
-	} else if (c == KEY_LEFT) {
-		j->pos_col -= 1;
-	}
-}
 
 /* Hugo : Pour tester la fonction, j'ai réutilisé ce que
  * j'avais écrit dans la fonction test/map.c

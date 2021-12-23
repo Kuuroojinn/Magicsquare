@@ -14,9 +14,6 @@ struct joueur
 	int pos_lin;
 	int pos_col;
 	int dir;  // direction du joueur
-
-	// pour les combats, à chager plus tard
-	//int pv = 1000;
 };
 
 #endif
