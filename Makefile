@@ -3,20 +3,23 @@
 
 
 # le jeu final
-main: main.o map.o joueur.o salles.o
-	gcc main.o map.o salles.o joueur.o -o main -lncurses
+main: main.o map.o joueur.o salles.o move.o
+	gcc main.o map.o salles.o joueur.o move.o -o main -lncurses
 
-main.o: source/main.c source/map.h source/salles.h source/joueur.h
-	gcc -c source/main.c
+main.o: src/main.c src/map.h src/salles.h src/joueur.h src/move.h
+	gcc -c src/main.c
 
-map.o: source/map.c
-	gcc -c source/map.c
+map.o: src/map.c src/map.h
+	gcc -c src/map.c 
 
-salles.o: source/salles.c 
-	gcc -c source/salles.c
+salles.o: src/salles.c 
+	gcc -c src/salles.c
 
-joueur.o: source/joueur.c
-	gcc -c source/joueur.c
+joueur.o: src/joueur.c
+	gcc -c src/joueur.c
+
+move.o: src/move.c src/map.h
+	gcc -c src/move.c -lncurses
 
 clean:
 	rm -f *.o

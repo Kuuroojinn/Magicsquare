@@ -13,7 +13,7 @@ struct salle
 	int pos_lin;  // nécessaire pour la positionner sur la map
 	int pos_col;
 	// int contenu[SAL_LIN][SAL_COL]
-	int contenu[8][8];  // ATTENTION : valeurs hardcodées car sinon erreur 
+	int contenu[8][24];  // ATTENTION : valeurs hardcodées car sinon erreur 
 };
 
 /* ajoute les éléments de la salle dans la map */
