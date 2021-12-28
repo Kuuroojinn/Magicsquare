@@ -4,6 +4,7 @@
 #include "joueur.h"
 #include "move.h"
 
+
 int main()
 {
 	// démarrage et réglage de ncurses
@@ -27,32 +28,36 @@ int main()
 
 	// démonstration seulement
 	struct joueur j1 = {
-		16,
-		12,
+		4,
+		9,
 		DROITE
 	};
 
     int map1[MAP_LIN][MAP_COL];
     initialise_map(map1);
    	
-    // salle de test
-   	struct salle salle1 = {
-		2,
-		6,
-		{
-			{MUR, MUR,  MUR, MUR, VIDE, VIDE, MUR, MUR, MUR, MUR,  MUR, MUR, VIDE, VIDE, MUR, MUR, MUR, MUR,  MUR, MUR, VIDE, VIDE, MUR, MUR},
-			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR, MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR, MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
-			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR, MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR, MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
-			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR, MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR, MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
-			{MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR, MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR, MUR, VIDE, VIDE, VIDE, VIDE, VIDE, VIDE, MUR},
-			{MUR, MUR,  VIDE, MUR, MUR, MUR, MUR, MUR}
-		}
-	};
+    // salle de test (tjs démonstration)
+	struct salle salle1;
+	initialise_salle(&salle1);
+	salle1.contenu[3][SAL_COL - 1] = VIDE;  // portes (à mettre dans une fonction)
+	salle1.contenu[4][SAL_COL - 1] = VIDE;
+	salle1.contenu[SAL_LIN - 1][11] = VIDE;
+	salle1.contenu[SAL_LIN - 1][12] = VIDE;
 
+	salle1.pos_lin = 2;
+	salle1.pos_col = 6;
 	ajoute_salle(salle1, map1);
 
-	affiche_bordure();
+	salle1.pos_lin = 12;
+	salle1.contenu[0][11] = VIDE;
+	salle1.contenu[0][12] = VIDE;
+	ajoute_salle(salle1, map1);
 
+	salle1.pos_lin = 22;
+	ajoute_salle(salle1, map1);
+
+
+	affiche_bordure();
 
 	// gameloop temporaire
 
@@ -72,8 +77,6 @@ int main()
 		{
 			deplacement(&j1, map1, inputchar);
 		}
-
-
 	}
 
 

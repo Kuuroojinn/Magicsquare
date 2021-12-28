@@ -3,8 +3,37 @@
 #include "salles.h"
 #include "map.h"
 
-const int SAL_LIN = 8;  // pour le moment, taille des salles
-const int SAL_COL = 8;
+// Dimension des salles : 8 lignes (SAL_LIN = 8) par 24 colonnes (SAL_COL = 24)
+// Le bord extérieur est *INCLUS* ;
+// ne pas aller chercher salle[SAL_LIN][3] par ex : dépassement de tableau
+
+
+/* entoure la salle de MURs et la remplit de VIDE */
+void initialise_salle(struct salle* s)
+{
+	// murs :
+	for (int col = 0; col < SAL_COL; col++)  // murs horizontaux
+	{
+		s->contenu[0][col] = MUR;  // haut
+		s->contenu[SAL_LIN - 1][col] = MUR;  // bas ( - 1 pour ne pas sortir de la salle)
+	}
+	for (int lin = 0; lin < SAL_LIN; lin++)  // murs verticaux
+	{
+		s->contenu[lin][0] = MUR;  // gauche
+		s->contenu[lin][SAL_COL - 1] = MUR;  // droite
+	}
+
+	// vide :
+	for (int lin = 1; lin < SAL_LIN - 1; lin++)  // valeurs extrêmes non comprises car des murs s'y trouvent
+	{
+		for (int col = 1; col < SAL_COL - 1; col++)  // idem
+		{
+			s->contenu[lin][col] = VIDE;
+		}
+	}
+	return;
+
+}
 
 
 /* ajoute les éléments de la salle dans la map */
