@@ -7,6 +7,11 @@
 // Le bord extérieur est *INCLUS* ;
 // ne pas aller chercher salle[SAL_LIN][3] par ex : dépassement de tableau
 
+const int LONG_C_H = 7;  //longueur d'un couloir horizontal
+const int LONG_C_V = 4; //longueur d'un couloir vertical
+
+const int ORI_C_H_A = 29; //origine des couloirs horizontaux (colonne)
+int ORI_C_H_O = 4; //origine des couloirs horizontaux (ligne)
 
 /* entoure la salle de MURs et la remplit de VIDE */
 void initialise_salle(struct salle* s)
@@ -52,4 +57,24 @@ void ajoute_salle(struct salle s, int map[MAP_LIN][MAP_COL])
 		}
 	}
 	return;
+}
+
+/* ajoute les couloirs horizontaux */
+void ajoute_couloir_h(int map[MAP_LIN][MAP_COL])
+{	
+	for (int j = 0; j < 3; j = j + 1) //3 lignes de couloirs
+	{
+		for (int i = ORI_C_H_A; i < MAP_COL - SAL_COL ; i = i + LONG_C_H + SAL_COL) 
+		//i est la colonne du début de chaque couloir sur la ligne
+		{
+			for (int col = 0; col < LONG_C_H; col = col + 1)
+			{
+				map[ORI_C_H_O][i+col] = MUR;
+				map[ORI_C_H_O + 1][i+col] = VIDE;
+				map[ORI_C_H_O + 2][i+col] = VIDE;
+				map[ORI_C_H_O + 3][i+col] = MUR;
+			}
+		}
+		ORI_C_H_O = ORI_C_H_O + LONG_C_V + SAL_LIN - 2;
+	}
 }
