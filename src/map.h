@@ -22,11 +22,6 @@ const int MAP_COL;
 //#define ENNEMI 6
 //#define BLOC 7
 
-const int COUL_MUR;
-
-
-/* affecte les paires de couleur à leur indice */
-void setup_couleur();
 
 /* remplit la map de VIDE */
 void initialise_map(int map[MAP_LIN][MAP_COL]);
@@ -36,15 +31,6 @@ void pivote_joueur_vers_map(struct joueur j, int map[MAP_LIN][MAP_COL]);
 
 /* vérifie que le joueur est bien dans la map (assertion) */
 void assert_joueur_dans_map(struct joueur j, int map[MAP_LIN][MAP_COL]);
-
-/* affiche la map au centre de l'écran. */
-void affiche_map(int map[MAP_LIN][MAP_COL]);
-
-/* affiche le caractère correspondant à val
- * aux coordonnées lin, col */
-void affiche_char_val(int val, int lin, int col);
-
-void affiche_bordure();
 
 
 #endif

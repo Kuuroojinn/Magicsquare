@@ -3,7 +3,7 @@
 #include "salles.h"
 #include "joueur.h"
 #include "move.h"
-
+#include "affichage.h"
 
 int main()
 {
@@ -30,7 +30,8 @@ int main()
 	struct joueur j1 = {
 		4,
 		9,
-		DROITE
+		DROITE,
+		5  // pv
 	};
 
     int map1[MAP_LIN][MAP_COL];

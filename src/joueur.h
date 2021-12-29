@@ -7,6 +7,7 @@ const int HAUT;
 const int BAS;
 const int GAUCHE;
 const int DROITE;
+const int MAX_PV;
 
 struct joueur
 {
@@ -14,6 +15,7 @@ struct joueur
 	int pos_lin;
 	int pos_col;
 	int dir;  // direction du joueur
+	int pv;
 };
 
 #endif
