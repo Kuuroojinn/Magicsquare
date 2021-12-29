@@ -16,14 +16,18 @@ const char CHR_JOUEUR_BAS = 'v';
 const char CHR_JOUEUR_GAUCHE = '<';
 const char CHR_JOUEUR_DROITE = '>';
 const char CHR_ERREUR = '?';
+#define CHR_PV ACS_DIAMOND
 
 /* couleurs pour affiche_char_val() 
  * NB : ne pas utiliser 0, ça ne marche pas */
 const int COUL_VIDE = 1;
 const int COUL_MUR = 2;
 const int COUL_JOUEUR = 3;
+const int COUL_PV_VIDE = 4;
+const int COUL_PV_PLEIN = 5;
 
-
+/* éléments additionnels affichables :
+ * PV_VIDE, PV_PLEIN (case représentant un point de vie) */
 
 /* affecte les paires de couleur à leur indice */
 void setup_couleur()
@@ -31,6 +35,8 @@ void setup_couleur()
     init_pair(COUL_MUR, COLOR_BLACK, COLOR_WHITE);
     init_pair(COUL_VIDE, COLOR_YELLOW, COLOR_GREEN);
     init_pair(COUL_JOUEUR, COLOR_YELLOW, COLOR_RED);
+    init_pair(COUL_PV_VIDE, COLOR_BLACK, COLOR_WHITE);
+    init_pair(COUL_PV_PLEIN, COLOR_RED, COLOR_WHITE);
 }
 
 
@@ -76,6 +82,18 @@ void affiche_char_val(int val, int lin, int col)
             attroff(COLOR_PAIR(COUL_JOUEUR));
             break;
 
+        case PV_VIDE:
+        	attron(COLOR_PAIR(COUL_PV_VIDE));
+        	mvaddch(lin, col, CHR_PV);
+        	attroff(COLOR_PAIR(COUL_PV_VIDE));
+        	break;
+
+        case PV_PLEIN:
+        	attron(COLOR_PAIR(COUL_PV_PLEIN));
+        	mvaddch(lin, col, CHR_PV);
+        	attroff(COLOR_PAIR(COUL_PV_PLEIN));
+        	break;
+
         default:  // erreur
             mvaddch(lin, col, CHR_ERREUR);
             break; 
@@ -84,13 +102,10 @@ void affiche_char_val(int val, int lin, int col)
 
 
 
-/* affiche la map au centre de l'écran. */
-void affiche_map(int map[MAP_LIN][MAP_COL])
+/* affiche la map au centre de l'écran de dimensions 
+ * scr_lin lignes par scr_col colonnes */
+void affiche_map(int map[MAP_LIN][MAP_COL], int scr_lin, int scr_col)
 {
-    // calcul du placement de la map sur l'écran :
-    int scr_lin, scr_col;
-    getmaxyx(stdscr, scr_lin, scr_col);
-
     // coordonnées du coin supérieur gauche de la map dans l'écran
     int start_lin, start_col;
     start_lin = (scr_lin - MAP_LIN) / 2;
@@ -120,19 +135,17 @@ void affiche_map(int map[MAP_LIN][MAP_COL])
 }
 
 
-/* affiche une bordure autour de la map */
-void affiche_bordure()
+/* affiche une bordure autour de la map, dans un écran
+ * de dimensions scr_lin lignes par scr_col colonnes */
+void affiche_bordure(int scr_lin, int scr_col)
 {
-	/* calcul du placement de la map sur l'écran : */
-    int scr_lin, scr_col;
-    getmaxyx(stdscr, scr_lin, scr_col);
-
-    // coordonnées du coin supérieur gauche de la map dans l'écran
+	/* calcul du placement de la map sur l'écran : 
+    // coordonnées du coin supérieur gauche de la map dans l'écran */
     int start_lin, start_col;
     start_lin = (scr_lin - MAP_LIN) / 2;
     start_col = (scr_col - MAP_COL) / 2;
     
-    
+    /* lignes : */
     // haut
     move(start_lin - 1, start_col);
     hline(ACS_HLINE, MAP_COL);  // trace la ligne
@@ -155,7 +168,7 @@ void affiche_bordure()
     mvaddch(start_lin + MAP_LIN, start_col - 1, ACS_LLCORNER);
     mvaddch(start_lin + MAP_LIN, start_col + MAP_COL, ACS_LRCORNER);
     
-
     refresh();
     return;
 }
+

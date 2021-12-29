@@ -22,8 +22,6 @@ int main()
     getmaxyx(stdscr, SCR_LIN, SCR_COL);
 
 
-
-
 	/////////////////////  DEBUT DU JEU  ///////////////////////////
 
 	// démonstration seulement
@@ -58,19 +56,24 @@ int main()
 	ajoute_salle(salle1, map1);
 
 
-	affiche_bordure();
+	affiche_bordure(SCR_LIN, SCR_COL);
+
+
+    // test d'affichage des conteneurs à pv
+	affiche_char_val(PV_VIDE, 1, 1);
+	affiche_char_val(PV_PLEIN, 1, 2);
 
 	// gameloop temporaire
 
-	int inputchar = -1;  // inputchar doit être sous la forme d'un int pour être 
-	             // comparé aux touches directionnelles 
-	             // (on peut le laisser comme ça pour la map, ça dérange pas)
+	// inputchar doit être un int pour être comparé aux touches directionnelles
+	int inputchar = -1;
 
-	while (inputchar != 'q') // Marche aussi avec KEY_DOWN, KEY_LEFT, KEY_RIGHT 
+
+	while (inputchar != 'q')
 	{
 		pivote_joueur_vers_map(j1, map1);
 
-		affiche_map(map1);
+		affiche_map(map1, SCR_LIN, SCR_COL);
 		inputchar = getch();
 
 		if (inputchar == KEY_UP   || inputchar == KEY_DOWN ||

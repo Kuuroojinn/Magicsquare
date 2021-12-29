@@ -10,7 +10,7 @@ const int MAP_COL;
 
 
 /* éléments que peut contenir la map ;
- * NB : #define employé pour pouvoir utiliser switch dans map.c */
+ * NB : #define employé pour pouvoir utiliser switch dans affichage.c */
 #define VIDE 0
 #define MUR 1
 // différentes directions du joueur :
