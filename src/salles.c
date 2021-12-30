@@ -71,18 +71,19 @@ void ajoute_couloir_h(int map[MAP_LIN][MAP_COL])
 
 	for (int rangee = 0; rangee < 3; rangee++) // 3 rangées de couloirs
 	{
-		for (int i = ORI_COULOIR_H_COL; i < MAP_COL - SAL_COL ; i += LONG_COULOIR_H + SAL_COL) 
-		// i est la colonne du début de chaque couloir sur la ligne
+		for (int ori_couloir_actuel = ORI_COULOIR_H_COL; ori_couloir_actuel < MAP_COL - SAL_COL ; ori_couloir_actuel += LONG_COULOIR_H + SAL_COL) 
+		// ori_couloir_actuel est la colonne du début de chaque couloir sur la ligne
 		{
 			for (int col = 0; col < LONG_COULOIR_H; col++)
 			{
-				map[tmp_ori_couloir_h_lin][i+col] = MUR;
-				map[tmp_ori_couloir_h_lin + 1][i+col] = VIDE;
-				map[tmp_ori_couloir_h_lin + 2][i+col] = VIDE;
-				map[tmp_ori_couloir_h_lin + 3][i+col] = MUR;
+				map[tmp_ori_couloir_h_lin][ori_couloir_actuel+col] = MUR;
+				map[tmp_ori_couloir_h_lin + 1][ori_couloir_actuel+col] = VIDE;
+				map[tmp_ori_couloir_h_lin + 2][ori_couloir_actuel+col] = VIDE;
+				map[tmp_ori_couloir_h_lin + 3][ori_couloir_actuel+col] = MUR;
 			}
 		}
 		tmp_ori_couloir_h_lin += LONG_COULOIR_V + SAL_LIN - 2;
+		//"-2" car le couloir et la salle sont connectés
 	}
 	return;
 }
@@ -98,13 +99,13 @@ void ajoute_couloir_v(int map[MAP_LIN][MAP_COL])
 		for (int ligne = 0; ligne < LONG_COULOIR_V; ligne++) 
 		// le couloir prend 4 lignes
 		{
-			for (int i = ORI_COULOIR_V_COL; i < MAP_COL - 4; i += LONG_COULOIR_H + SAL_COL)  
-			//on ne doit pas dépasser la map (avec 4 la largeur du couloir)
+			for (int ori_couloir_actuel = ORI_COULOIR_V_COL; ori_couloir_actuel < MAP_COL - 4; ori_couloir_actuel += LONG_COULOIR_H + SAL_COL)  
+			//ori_couloir_actuel est la colonne du côté gauche du couloir et le couloir ne doit pas dépasser la map (d'où 4 la largeur du couloir)
 			{
-				map[tmp_ori_couloir_v_lin][i]= MUR;
-				map[tmp_ori_couloir_v_lin][i + 1] = VIDE;
-				map[tmp_ori_couloir_v_lin][i + 2] = VIDE;
-				map[tmp_ori_couloir_v_lin][i + 3] = MUR;
+				map[tmp_ori_couloir_v_lin][ori_couloir_actuel]= MUR;
+				map[tmp_ori_couloir_v_lin][ori_couloir_actuel + 1] = VIDE;
+				map[tmp_ori_couloir_v_lin][ori_couloir_actuel + 2] = VIDE;
+				map[tmp_ori_couloir_v_lin][ori_couloir_actuel + 3] = MUR;
 			}
 			tmp_ori_couloir_v_lin += 1;
 		}
