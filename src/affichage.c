@@ -9,7 +9,8 @@
 
 
 /* caractères pour affiche_char_val() */
-const char CHR_VIDE = '.';
+//const char CHR_VIDE = '.';
+#define CHR_VIDE ACS_BULLET
 const char CHR_MUR = ' ';
 const char CHR_JOUEUR_HAUT = '^';
 const char CHR_JOUEUR_BAS = 'v';
@@ -20,11 +21,11 @@ const char CHR_ERREUR = '?';
 
 /* couleurs pour affiche_char_val() 
  * NB : ne pas utiliser 0, ça ne marche pas */
-const int COUL_VIDE = 1;
-const int COUL_MUR = 2;
-const int COUL_JOUEUR = 3;
-const int COUL_PV_VIDE = 4;
-const int COUL_PV_PLEIN = 5;
+const int COULEUR_VIDE = 1;
+const int COULEUR_MUR = 2;
+const int COULEUR_JOUEUR = 3;
+const int COULEUR_PV_VIDE = 4;
+const int COULEUR_PV_PLEIN = 5;
 
 /* éléments additionnels affichables :
  * PV_VIDE, PV_PLEIN (case représentant un point de vie) */
@@ -32,11 +33,11 @@ const int COUL_PV_PLEIN = 5;
 /* affecte les paires de couleur à leur indice */
 void setup_couleur()
 {
-    init_pair(COUL_MUR, COLOR_BLACK, COLOR_WHITE);
-    init_pair(COUL_VIDE, COLOR_YELLOW, COLOR_GREEN);
-    init_pair(COUL_JOUEUR, COLOR_YELLOW, COLOR_RED);
-    init_pair(COUL_PV_VIDE, COLOR_BLACK, COLOR_WHITE);
-    init_pair(COUL_PV_PLEIN, COLOR_RED, COLOR_WHITE);
+    init_pair(COULEUR_MUR, COLOR_BLACK, COLOR_WHITE);
+    init_pair(COULEUR_VIDE, COLOR_YELLOW, COLOR_GREEN);
+    init_pair(COULEUR_JOUEUR, COLOR_YELLOW, COLOR_RED);
+    init_pair(COULEUR_PV_VIDE, COLOR_BLACK, COLOR_WHITE);
+    init_pair(COULEUR_PV_PLEIN, COLOR_RED, COLOR_WHITE);
 }
 
 
@@ -47,51 +48,51 @@ void affiche_char_val(int val, int lin, int col)
     switch(val)
     {
         case VIDE:
-            attron(COLOR_PAIR(COUL_VIDE));
+            attron(COLOR_PAIR(COULEUR_VIDE));
             mvaddch(lin, col, CHR_VIDE);
-            attroff(COLOR_PAIR(COUL_VIDE));
+            attroff(COLOR_PAIR(COULEUR_VIDE));
             break;
 
         case MUR:
-            attron(COLOR_PAIR(COUL_MUR));
+            attron(COLOR_PAIR(COULEUR_MUR));
             mvaddch(lin, col, CHR_MUR);
-            attroff(COLOR_PAIR(COUL_MUR));
+            attroff(COLOR_PAIR(COULEUR_MUR));
             break;
 
         case JOUEUR_HAUT:
-            attron(COLOR_PAIR(COUL_JOUEUR));
+            attron(COLOR_PAIR(COULEUR_JOUEUR));
             mvaddch(lin, col, CHR_JOUEUR_HAUT);
-            attroff(COLOR_PAIR(COUL_JOUEUR));
+            attroff(COLOR_PAIR(COULEUR_JOUEUR));
             break;
 
         case JOUEUR_BAS:
-            attron(COLOR_PAIR(COUL_JOUEUR));
+            attron(COLOR_PAIR(COULEUR_JOUEUR));
             mvaddch(lin, col, CHR_JOUEUR_BAS);
-            attroff(COLOR_PAIR(COUL_JOUEUR));
+            attroff(COLOR_PAIR(COULEUR_JOUEUR));
             break;
 
         case JOUEUR_GAUCHE:
-            attron(COLOR_PAIR(COUL_JOUEUR));
+            attron(COLOR_PAIR(COULEUR_JOUEUR));
             mvaddch(lin, col, CHR_JOUEUR_GAUCHE);
-            attroff(COLOR_PAIR(COUL_JOUEUR));
+            attroff(COLOR_PAIR(COULEUR_JOUEUR));
             break;
 
         case JOUEUR_DROITE:
-            attron(COLOR_PAIR(COUL_JOUEUR));
+            attron(COLOR_PAIR(COULEUR_JOUEUR));
             mvaddch(lin, col, CHR_JOUEUR_DROITE);
-            attroff(COLOR_PAIR(COUL_JOUEUR));
+            attroff(COLOR_PAIR(COULEUR_JOUEUR));
             break;
 
         case PV_VIDE:
-        	attron(COLOR_PAIR(COUL_PV_VIDE));
+        	attron(COLOR_PAIR(COULEUR_PV_VIDE));
         	mvaddch(lin, col, CHR_PV);
-        	attroff(COLOR_PAIR(COUL_PV_VIDE));
+        	attroff(COLOR_PAIR(COULEUR_PV_VIDE));
         	break;
 
         case PV_PLEIN:
-        	attron(COLOR_PAIR(COUL_PV_PLEIN));
+        	attron(COLOR_PAIR(COULEUR_PV_PLEIN));
         	mvaddch(lin, col, CHR_PV);
-        	attroff(COLOR_PAIR(COUL_PV_PLEIN));
+        	attroff(COLOR_PAIR(COULEUR_PV_PLEIN));
         	break;
 
         default:  // erreur
@@ -172,3 +173,12 @@ void affiche_bordure(int scr_lin, int scr_col)
     return;
 }
 
+
+/* affiche les points de vie restants du joueur *
+void affiche_pv(struct joueur j)
+{
+	move()
+
+	return;
+}
+*/
