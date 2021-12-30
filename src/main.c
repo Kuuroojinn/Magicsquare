@@ -34,9 +34,7 @@ int main()
 
     int map1[MAP_LIN][MAP_COL];
     initialise_map(map1);
-    ajoute_couloir_h(map1);
-    ajoute_couloir_v(map1);
-	
+
     // salle de test (tjs démonstration)
 	struct salle salle1;
 	initialise_salle(&salle1);
@@ -57,6 +55,9 @@ int main()
 	salle1.pos_lin = 22;
 	ajoute_salle(salle1, map1);
 
+    ajoute_couloir_h(map1);
+    ajoute_couloir_v(map1);
+	
 
 	affiche_bordure(SCR_LIN, SCR_COL);
 
@@ -64,6 +65,7 @@ int main()
     // test d'affichage des conteneurs à pv
 	affiche_char_val(PV_VIDE, 1, 1);
 	affiche_char_val(PV_PLEIN, 1, 2);
+
 
 	// gameloop temporaire
 

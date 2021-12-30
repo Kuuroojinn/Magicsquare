@@ -69,12 +69,12 @@ void ajoute_couloir_h(int map[MAP_LIN][MAP_COL])
 {	
 	int tmp_ori_couloir_h_lin = ORI_COULOIR_H_LIN;
 
-	for (int j = 0; j < 3; j++) // 3 lignes de couloirs
+	for (int rangee = 0; rangee < 3; rangee++) // 3 rangées de couloirs
 	{
 		for (int i = ORI_COULOIR_H_COL; i < MAP_COL - SAL_COL ; i += LONG_COULOIR_H + SAL_COL) 
 		// i est la colonne du début de chaque couloir sur la ligne
 		{
-			for (int col = 0; col < LONG_COULOIR_H; col = col + 1)
+			for (int col = 0; col < LONG_COULOIR_H; col++)
 			{
 				map[tmp_ori_couloir_h_lin][i+col] = MUR;
 				map[tmp_ori_couloir_h_lin + 1][i+col] = VIDE;
@@ -93,12 +93,12 @@ void ajoute_couloir_v(int map[MAP_LIN][MAP_COL])
 {	
 	int tmp_ori_couloir_v_lin = ORI_COULOIR_V_LIN;
 
-	for (int j = 0; j < 2; j++) //2 rangées de couloirs
+	for (int rangee = 0; rangee < 2; rangee++) // 2 rangées de couloirs
 	{
-		for (int ligne = 0; ligne < LONG_COULOIR_V; ligne = ligne + 1) 
-		//le couloir prend 4 lignes
+		for (int ligne = 0; ligne < LONG_COULOIR_V; ligne++) 
+		// le couloir prend 4 lignes
 		{
-			for (int i = ORI_COULOIR_V_COL; i < MAP_COL - 4; i = i + LONG_COULOIR_H + SAL_COL)  
+			for (int i = ORI_COULOIR_V_COL; i < MAP_COL - 4; i += LONG_COULOIR_H + SAL_COL)  
 			//on ne doit pas dépasser la map (avec 4 la largeur du couloir)
 			{
 				map[tmp_ori_couloir_v_lin][i]= MUR;
