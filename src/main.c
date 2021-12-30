@@ -35,6 +35,7 @@ int main()
     int map1[MAP_LIN][MAP_COL];
     initialise_map(map1);
     ajoute_couloir_h(map1);
+    ajoute_couloir_v(map1);
 	
     // salle de test (tjs démonstration)
 	struct salle salle1;
