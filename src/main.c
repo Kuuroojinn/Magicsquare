@@ -38,18 +38,42 @@ int main()
     // salle de test (tjs démonstration)
 	struct salle salle1;
 	initialise_salle(&salle1);
-	salle1.contenu[3][SAL_COL - 1] = VIDE;  // portes (à mettre dans une fonction)
-	salle1.contenu[4][SAL_COL - 1] = VIDE;
-	salle1.contenu[SAL_LIN - 1][11] = VIDE;
-	salle1.contenu[SAL_LIN - 1][12] = VIDE;
-
+	
 	salle1.pos_lin = 2;
 	salle1.pos_col = 6;
 	ajoute_salle(salle1, map1);
 
 	salle1.pos_lin = 12;
-	salle1.contenu[0][11] = VIDE;
-	salle1.contenu[0][12] = VIDE;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 22;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 2;
+	salle1.pos_col = 35;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 12;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 22;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 2;
+	salle1.pos_col = 64;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 12;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 22;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 2;
+	salle1.pos_col = 93;
+	ajoute_salle(salle1, map1);
+
+	salle1.pos_lin = 12;
 	ajoute_salle(salle1, map1);
 
 	salle1.pos_lin = 22;
