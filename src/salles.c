@@ -115,3 +115,21 @@ void ajoute_couloir_v(int map[MAP_LIN][MAP_COL])
 	}
 	return;
 }
+
+/* Créer automatiquement les salles*/
+void creation_salles(int map[MAP_LIN][MAP_COL])
+{
+	struct salle salle_actuelle;
+	initialise_salle(&salle_actuelle);
+
+	for (salle_actuelle.pos_col = ORI_SALLE1_COL; salle_actuelle.pos_col < MAP_COL - SAL_COL; salle_actuelle.pos_col += LONG_COULOIR_H + SAL_COL - 2)
+	//Change la colonne de la salle actuelle
+	{
+		for (salle_actuelle.pos_lin = ORI_SALLE1_LIN; salle_actuelle.pos_lin < MAP_LIN - SAL_LIN; salle_actuelle.pos_lin += LONG_COULOIR_V + SAL_LIN - 2)
+		//Change la ligne de la salle actuelle
+		{
+			ajoute_salle(salle_actuelle, map);
+		}
+	}
+	return;
+}
