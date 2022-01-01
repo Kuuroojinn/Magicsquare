@@ -27,4 +27,7 @@ void ajoute_couloir_h(int map[MAP_LIN][MAP_COL]);
 /* ajoute les couloirs verticaux */
 void ajoute_couloir_v(int map[MAP_LIN][MAP_COL]);
 
+/* Créer automatiquement les salles*/
+void creation_salles(int map[MAP_LIN][MAP_COL]);
+
 #endif
