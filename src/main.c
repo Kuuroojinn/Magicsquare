@@ -35,49 +35,8 @@ int main()
     int map1[MAP_LIN][MAP_COL];
     initialise_map(map1);
 
-    // salle de test (tjs démonstration)
-	struct salle salle1;
-	initialise_salle(&salle1);
-	
-	salle1.pos_lin = 2;
-	salle1.pos_col = 6;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 12;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 22;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 2;
-	salle1.pos_col = 35;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 12;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 22;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 2;
-	salle1.pos_col = 64;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 12;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 22;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 2;
-	salle1.pos_col = 93;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 12;
-	ajoute_salle(salle1, map1);
-
-	salle1.pos_lin = 22;
-	ajoute_salle(salle1, map1);
+    // salles de test (tjs démonstration)
+    creation_salles(map1);
 
     ajoute_couloir_h(map1);
     ajoute_couloir_v(map1);
