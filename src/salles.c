@@ -73,6 +73,7 @@ void ajoute_salle(struct salle s, int map[MAP_LIN][MAP_COL])
 	return;
 }
 
+//J'ai réduit la largeur des couloirs pour pouvoir placer un ennemi devant
 
 /* ajoute les couloirs horizontaux */
 void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL])
@@ -87,8 +88,9 @@ void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL])
 		{
 			for (int col = 0; col < LONG_COULOIR_H; col++)
 			{
-				map[tmp_ori_couloir_h_lin][ori_couloir_actuel+col] = MUR;
-				map[tmp_ori_couloir_h_lin + 1][ori_couloir_actuel+col] = VIDE;
+				//map[tmp_ori_couloir_h_lin][ori_couloir_actuel+col] = MUR;
+				map[tmp_ori_couloir_h_lin + 1][ori_couloir_actuel+col] = MUR;
+				map[tmp_ori_couloir_h_lin + 2][ori_couloir_actuel-1] = ENNEMI;
 				map[tmp_ori_couloir_h_lin + 2][ori_couloir_actuel+col] = VIDE;
 				map[tmp_ori_couloir_h_lin + 3][ori_couloir_actuel+col] = MUR;
 			}
@@ -104,7 +106,8 @@ void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL])
 void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL])
 {	
 	int tmp_ori_couloir_v_lin = ORI_COULOIR_V_LIN;
-
+	int couloir_lin = ORI_COULOIR_V_LIN;
+	
 	for (int rangee = 0; rangee < 2; rangee++) // 2 rangées de couloirs
 	{
 		for (int ligne = 0; ligne < LONG_COULOIR_V; ligne++) 
@@ -112,13 +115,17 @@ void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL])
 			for (int ori_couloir_actuel = ORI_COULOIR_V_COL; ori_couloir_actuel < MAP_COL - 4; ori_couloir_actuel += LONG_COULOIR_H + SAL_COL - 2)  
 			//ori_couloir_actuel est la colonne du côté gauche du couloir et le couloir ne doit pas dépasser la map (d'où 4 la largeur du couloir)
 			{
-				map[tmp_ori_couloir_v_lin][ori_couloir_actuel]= MUR;
-				map[tmp_ori_couloir_v_lin][ori_couloir_actuel + 1] = VIDE;
+				//map[tmp_ori_couloir_v_lin][ori_couloir_actuel]= MUR;
+				map[tmp_ori_couloir_v_lin][ori_couloir_actuel + 1] = MUR;
+				map[couloir_lin-1][ori_couloir_actuel + 2] = ENNEMI;
+				
 				map[tmp_ori_couloir_v_lin][ori_couloir_actuel + 2] = VIDE;
+				
 				map[tmp_ori_couloir_v_lin][ori_couloir_actuel + 3] = MUR;
 			}
 			tmp_ori_couloir_v_lin += 1;
 		}
+		couloir_lin += LONG_COULOIR_V + SAL_LIN - 2;
 		tmp_ori_couloir_v_lin += LONG_COULOIR_V + SAL_LIN - 6; 
 		//"-6" car il faut retirer les 4 rajoutés dans la boucle précédente
 	}
