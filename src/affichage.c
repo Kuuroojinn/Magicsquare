@@ -17,6 +17,7 @@ const char CHR_JOUEUR_BAS = 'v';
 const char CHR_JOUEUR_GAUCHE = '<';
 const char CHR_JOUEUR_DROITE = '>';
 const char CHR_ERREUR = '?';
+const char CHR_ENNEMI = '!';
 #define CHR_PV ACS_DIAMOND
 
 /* couleurs pour affiche_char_val() 
@@ -26,6 +27,7 @@ const int COULEUR_MUR = 2;
 const int COULEUR_JOUEUR = 3;
 const int COULEUR_PV_VIDE = 4;
 const int COULEUR_PV_PLEIN = 5;
+const int COULEUR_ENNEMI = 6;
 
 /* éléments additionnels affichables :
  * PV_VIDE, PV_PLEIN (case représentant un point de vie) */
@@ -38,6 +40,7 @@ void setup_couleur()
     init_pair(COULEUR_JOUEUR, COLOR_YELLOW, COLOR_RED);
     init_pair(COULEUR_PV_VIDE, COLOR_BLACK, COLOR_WHITE);
     init_pair(COULEUR_PV_PLEIN, COLOR_RED, COLOR_WHITE);
+    init_pair(COULEUR_ENNEMI, COLOR_BLUE, COLOR_WHITE);
 }
 
 
@@ -94,6 +97,11 @@ void affiche_char_val(int val, int lin, int col)
         	mvaddch(lin, col, CHR_PV);
         	attroff(COLOR_PAIR(COULEUR_PV_PLEIN));
         	break;
+		case ENNEMI:
+			attron(COLOR_PAIR(COULEUR_ENNEMI));
+			mvaddch(lin, col, CHR_ENNEMI);
+			attroff(COLOR_PAIR(COULEUR_ENNEMI));
+			break;
 
         default:  // erreur
             mvaddch(lin, col, CHR_ERREUR);
@@ -138,6 +146,7 @@ void affiche_map(int map[MAP_LIN][MAP_COL], int scr_lin, int scr_col)
 
 /* affiche une bordure autour de la map, dans un écran
  * de dimensions scr_lin lignes par scr_col colonnes */
+ //Ne fonctionne pas sur tous les pc (surement mon terminal qui est mal paramétré)
 void affiche_bordure(int scr_lin, int scr_col)
 {
 	/* calcul du placement de la map sur l'écran : 
