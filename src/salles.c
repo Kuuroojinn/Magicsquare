@@ -17,6 +17,9 @@ const int ORI_COULOIR_H_LIN = 4; // origine des couloirs horizontaux (ligne)
 const int ORI_COULOIR_V_COL = 16; // origine des couloirs verticaux (colonne)
 const int ORI_COULOIR_V_LIN = 9; // origine des couloirs verticaux (ligne)
 
+const int ORI_SALLE1_COL = 6; //Colonne de la 1ere salle
+const int ORI_SALLE1_LIN = 2; //Ligne de la 1ere salle
+
 
 /* entoure la salle de MURs et la remplit de VIDE */
 void initialise_salle(struct salle* s)
