@@ -9,16 +9,23 @@
 // ne pas aller chercher salle[SAL_LIN][3] par ex : dépassement de tableau
 
 
-const int LONG_COULOIR_H = 7;  // longueur d'un couloir horizontal
-const int LONG_COULOIR_V = 4; // longueur d'un couloir vertical
+const int LONG_COULOIR_H = 7;     // longueur d'un couloir horizontal
+const int LONG_COULOIR_V = 3;     // longueur d'un couloir vertical
 
-const int ORI_COULOIR_H_COL = 29; // origine des couloirs horizontaux (colonne)
-const int ORI_COULOIR_H_LIN = 4; // origine des couloirs horizontaux (ligne)
-const int ORI_COULOIR_V_COL = 16; // origine des couloirs verticaux (colonne)
-const int ORI_COULOIR_V_LIN = 9; // origine des couloirs verticaux (ligne)
+const int ORI_SALLE1_LIN = 2;     // origine de la 1ère salle (ligne)
+const int ORI_SALLE1_COL = 6;     // origine de la 1ère salle (colonne)
 
-const int ORI_SALLE1_COL = 6; //Colonne de la 1ere salle
-const int ORI_SALLE1_LIN = 2; //Ligne de la 1ere salle
+// origine des couloirs horizontaux (ligne) ;
+// + (SAL_LIN / 2) - 2 : centre le couloir au milieu du mur
+const int ORI_COULOIR_H_LIN = ORI_SALLE1_LIN + (SAL_LIN / 2) - 2;
+// origine des couloirs horizontaux (colonne) ; - 1 car le couloir commence dans la salle
+const int ORI_COULOIR_H_COL = ORI_SALLE1_COL + SAL_COL - 1;
+
+// origine des couloirs verticaux (ligne)
+const int ORI_COULOIR_V_LIN = ORI_SALLE1_LIN + SAL_LIN - 1;
+// origine des couloirs verticaux (colonne)
+// + (SAL_COL / 2) - 2 : centre le couloir au milieu du mur
+const int ORI_COULOIR_V_COL = ORI_SALLE1_COL + (SAL_COL / 2) - 2; 
 
 
 /* entoure la salle de MURs et la remplit de VIDE */
@@ -68,7 +75,7 @@ void ajoute_salle(struct salle s, int map[MAP_LIN][MAP_COL])
 
 
 /* ajoute les couloirs horizontaux */
-void ajoute_couloir_h(int map[MAP_LIN][MAP_COL])
+void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL])
 {	
 	int tmp_ori_couloir_h_lin = ORI_COULOIR_H_LIN;
 
@@ -94,14 +101,13 @@ void ajoute_couloir_h(int map[MAP_LIN][MAP_COL])
 
 
 /* ajoute les couloirs verticaux */
-void ajoute_couloir_v(int map[MAP_LIN][MAP_COL])
+void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL])
 {	
 	int tmp_ori_couloir_v_lin = ORI_COULOIR_V_LIN;
 
 	for (int rangee = 0; rangee < 2; rangee++) // 2 rangées de couloirs
 	{
 		for (int ligne = 0; ligne < LONG_COULOIR_V; ligne++) 
-		// le couloir prend 4 lignes
 		{
 			for (int ori_couloir_actuel = ORI_COULOIR_V_COL; ori_couloir_actuel < MAP_COL - 4; ori_couloir_actuel += LONG_COULOIR_H + SAL_COL - 2)  
 			//ori_couloir_actuel est la colonne du côté gauche du couloir et le couloir ne doit pas dépasser la map (d'où 4 la largeur du couloir)
@@ -119,7 +125,8 @@ void ajoute_couloir_v(int map[MAP_LIN][MAP_COL])
 	return;
 }
 
-/* Créer automatiquement les salles*/
+
+/* Crée automatiquement les salles */
 void creation_salles(int map[MAP_LIN][MAP_COL])
 {
 	struct salle salle_actuelle;

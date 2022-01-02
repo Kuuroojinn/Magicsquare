@@ -38,8 +38,8 @@ int main()
     // salles de test (tjs démonstration)
     creation_salles(map1);
 
-    ajoute_couloir_h(map1);
-    ajoute_couloir_v(map1);
+    ajoute_couloirs_h(map1);
+    ajoute_couloirs_v(map1);
 	
 
 	affiche_bordure(SCR_LIN, SCR_COL);

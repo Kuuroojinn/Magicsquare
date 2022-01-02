@@ -3,7 +3,7 @@
 
 #include "map.h"
 
-#define SAL_LIN 8  // dimensions standard d'une salle (bord extérieur INCLUS)
+#define SAL_LIN 8   // dimensions standard d'une salle (bord extérieur INCLUS)
 #define SAL_COL 24  // définies ainsi pour pouvoir créer contenu dans struct salle
 
 
@@ -22,10 +22,10 @@ void initialise_salle(struct salle* s);
 void ajoute_salle(struct salle s, int map[MAP_LIN][MAP_COL]);
 
 /* ajoute les couloirs horizontaux */
-void ajoute_couloir_h(int map[MAP_LIN][MAP_COL]);
+void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL]);
 
 /* ajoute les couloirs verticaux */
-void ajoute_couloir_v(int map[MAP_LIN][MAP_COL]);
+void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL]);
 
 /* Créer automatiquement les salles*/
 void creation_salles(int map[MAP_LIN][MAP_COL]);
