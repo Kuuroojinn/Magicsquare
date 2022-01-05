@@ -123,7 +123,7 @@ void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL])
 	{
 		for (int ligne = 0; ligne < LONG_COULOIR_V; ligne++) 
 		{
-			for (int ori_couloir_actuel = ORI_COULOIR_V_COL; ori_couloir_actuel < MAP_COL - 4; ori_couloir_actuel += LONG_COULOIR_H + SAL_COL - 2)  
+			for (int ori_couloir_actuel = ORI_COULOIR_V_COL; ori_couloir_actuel < MAP_COL - SAL_COL; ori_couloir_actuel += LONG_COULOIR_H + SAL_COL - 2)  
 			//ori_couloir_actuel est la colonne du côté gauche du couloir et le couloir ne doit pas dépasser la map (d'où 4 la largeur du couloir)
 			{
 				//map[tmp_ori_couloir_v_lin][ori_couloir_actuel]= MUR;
