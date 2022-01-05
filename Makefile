@@ -24,7 +24,7 @@ move.o: src/move.c src/map.h
 affichage.o: src/affichage.c src/map.h
 	gcc -c src/affichage.c -lncurses
 	
-ennemi.o: src/ennemi.c
+ennemi.o: src/ennemi.c src/joueur.h
 	gcc -c src/ennemi.c -lncurses
 
 clean:

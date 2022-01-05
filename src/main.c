@@ -26,10 +26,11 @@ int main()
 
 	// démonstration seulement
 	struct joueur j1 = {
-		4,
-		9,
-		DROITE,
-		5  // pv
+		4,       // pos_lin
+		9,       // pos_col
+		DROITE,  // dir
+		5,       // pv
+		4        // atk
 	};
 
     int map1[MAP_LIN][MAP_COL];

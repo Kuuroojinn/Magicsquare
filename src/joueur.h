@@ -15,7 +15,9 @@ struct joueur
 	int pos_lin;
 	int pos_col;
 	int dir;  // direction du joueur
+
 	int pv;
+	int atk;
 };
 
 #endif
