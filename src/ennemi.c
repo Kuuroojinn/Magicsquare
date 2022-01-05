@@ -1,47 +1,42 @@
 #include <ncurses.h>
-#include <assert.h>
-#include <stdbool.h>
+#include "joueur.h"
 
 
 /* differents types d'ennemis qui pourront exister
  * en plusieurs instances sur la map ? */
 
-struct ennemi1{
-	int pv = 100;
+struct ennemi {
+	int pv;
 	int atk;
-	int xe = ;
-	int ye = ;
-}
+	int lin;  // position 
+	int col;
+};
 
-struct ennemi2{
-	int pv = 200;
-	int atk;
-	int xe = ;
-	int ye = ;
-}
+struct ennemi e1 = {1};
 
-struct ennemi3{
-	int atk;
-	int pv = 300;
-	int xe = ;
-	int ye = ;
-}
 
-void combat (struct* joueur j, struct* ennemi e)
-	pv_max = j->pv;
-	while ((j->pv > 0) && (e->pv >0)){
+void combat(struct joueur* j, struct ennemi* e)
+{
+	int pv_max = j->pv;
+
+	while ((j->pv > 0) && (e->pv >0))
+	{
 		char entree;
 		printw("Vous : %d | Ennemi : %d",j->pv,e->pv);
 		printw("Que voulez vous faire : attaquer[a] ou defendre[d] ? ");
 		scanw("%s",&entree);
-		if (entree == 'a') {
+		if (entree == 'a')
+		{
 			e->pv = e->pv - j->atk;
 		}
 	}
-	if (e->pv <= 0) {
+	if (e->pv <= 0)
+	{
 		j->atk +=1;
 		j->pv = pv_max;
-	} else {
+	}
+	else
+	{
 		j->pv = pv_max;
 	}
 }
