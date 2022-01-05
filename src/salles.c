@@ -31,10 +31,10 @@ struct salle salle_actuelle; //struct de la salle ici pour l'utiliser dans plusi
 
 int calcul_nbr_rangee_couloirs() //Calcule le nombre de rangées de couloirs nécéssaire
 {
-	int nb_c_tmp = 0;
+	int nb_c = 0;
 	for (salle_actuelle.pos_lin = ORI_SALLE1_LIN; salle_actuelle.pos_lin < MAP_LIN - SAL_LIN; salle_actuelle.pos_lin += LONG_COULOIR_V + SAL_LIN - 2)
 	{
-		nb_c = nb_c_tmp + 1;
+		nb_c = nb_c + 1;
 	}
 return nb_c;
 }
