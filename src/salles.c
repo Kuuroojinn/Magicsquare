@@ -88,7 +88,7 @@ void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL])
 
 	for (int rangee = 0; rangee < calcul_nbr_rangee_couloirs(); rangee++) 
 	{
-		for (int ori_couloir_actuel = ORI_COULOIR_H_COL; ori_couloir_actuel < MAP_COL - SAL_COL ; ori_couloir_actuel += LONG_COULOIR_H + SAL_COL - 2) 
+		for (int ori_couloir_actuel = ORI_COULOIR_H_COL; ori_couloir_actuel < MAP_COL - SAL_COL - LONG_COULOIR_H; ori_couloir_actuel += LONG_COULOIR_H + SAL_COL - 2) 
 		// ori_couloir_actuel est la colonne du début de chaque couloir sur la ligne
 		//"-2" car le couloir est collé à la salle
 		{
