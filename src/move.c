@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <ncurses.h>
-#include "map.h"
 #include "move.h"
+#include "map.h"
 
 /////////////   Déplacements gérés dans ce fichier   //////////////
 
