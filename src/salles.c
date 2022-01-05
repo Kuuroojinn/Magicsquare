@@ -27,6 +27,7 @@ const int ORI_COULOIR_V_LIN = ORI_SALLE1_LIN + SAL_LIN - 1;
 // + (SAL_COL / 2) - 2 : centre le couloir au milieu du mur
 const int ORI_COULOIR_V_COL = ORI_SALLE1_COL + (SAL_COL / 2) - 2; 
 
+
 struct salle salle_actuelle; //struct de la salle ici pour l'utiliser dans plusieurs fonctions
 
 int calcul_nbr_rangee_couloirs() //Calcule le nombre de rangées de couloirs nécéssaire
