@@ -1,3 +1,4 @@
 ######## ignore certains fichiers lors de l'import ########
 
 *.o
+main
