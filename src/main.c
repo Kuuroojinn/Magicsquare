@@ -40,17 +40,11 @@ int main()
     // salles de test (tjs démonstration)
     creation_salles(map1);
 
-    ajoute_couloirs_h(map1, true);
-    ajoute_couloirs_v(map1);
+    ajoute_couloirs_h(map1, false);  // true : les ennemis sont présents
+    ajoute_couloirs_v(map1, true);
 	
 
 	affiche_bordure(SCR_LIN, SCR_COL);
-
-
-    // test d'affichage des conteneurs à pv
-	affiche_char_val(PV_VIDE, 1, 1);
-	affiche_char_val(PV_PLEIN, 1, 2);
-
 
 	// gameloop temporaire
 

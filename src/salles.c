@@ -5,11 +5,9 @@
 #include "map.h"
 
 
-// Dimension des salles : 8 lignes (SAL_LIN = 8) par 24 colonnes (SAL_COL = 24)
+// Dimension des salles (cf salles.h) : 8 lignes (SAL_LIN = 8) par 24 colonnes (SAL_COL = 24)
 // Le bord extérieur est *INCLUS* ;
 // ne pas aller chercher salle[SAL_LIN][3] par ex : dépassement de tableau
-
-
 
 const int LONG_COULOIR_H = 7;     // longueur d'un couloir horizontal
 const int LONG_COULOIR_V = 4;     // longueur d'un couloir vertical
@@ -30,7 +28,7 @@ const int ORI_COULOIR_V_LIN = ORI_SALLE1_LIN + SAL_LIN - 1;
 const int ORI_COULOIR_V_COL = ORI_SALLE1_COL + (SAL_COL / 2) - 2;
 
 
-/* Calcule le nombre de rangées de couloirs nécessaires */
+/* Calcule le nombre de rangées de couloirs horizontaux nécessaires */
 int calcul_nbr_rangee_couloirs()
 {
 	// seuil (ligne) à partir duquel il ne faut plus ajouter de salles pour ne pas sortir de la map :
@@ -118,7 +116,8 @@ void creation_salles(int map[MAP_LIN][MAP_COL])
 }
 
 
-/* ajoute les couloirs horizontaux et des ennemis devant si ennemi = true */
+/* ajoute les couloirs horizontaux, et un ennemi devant
+ * chaque couloir si le paramètre ennemi vaut true */
 void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL], bool ennemi)
 {	
 	// seuil (colonne) à ne pas dépasser pour ne pas sortir de la map :
@@ -128,9 +127,10 @@ void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL], bool ennemi)
 	// décalage (ligne) d'un couloir au suivant (- 2 car le couloir commence dans la salle) :
 	int decalage_lin = LONG_COULOIR_V + SAL_LIN - 2;
 
-
 	int debut_coul_lin = ORI_COULOIR_H_LIN;  // ligne de début du couloir actuel
-	for (int rangee = 0; rangee < calcul_nbr_rangee_couloirs(); rangee++)  // parcourt les rangées de couloirs
+
+	// parcourt les rangées de couloirs horizontalement
+	for (int rangee = 0; rangee < calcul_nbr_rangee_couloirs(); rangee++)
 	{
 		// debut_coul_col : colonne du début du couloir actuel
 		for (int debut_coul_col = ORI_COULOIR_H_COL; debut_coul_col < seuil_col; debut_coul_col += decalage_col)
@@ -141,41 +141,49 @@ void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL], bool ennemi)
 				map[debut_coul_lin + 1][debut_coul_col + col] = VIDE;
 				map[debut_coul_lin + 2][debut_coul_col + col] = MUR;
 			}
-			map[debut_coul_lin + 1][debut_coul_col - 1] = ENNEMI;  // place l'ennemi en début de couloir
+			if (ennemi) // place un ennemi devant le couloir
+			{
+				map[debut_coul_lin + 1][debut_coul_col - 1] = ENNEMI;
+			}
 		}
-		debut_coul_lin += decalage_lin;
+		debut_coul_lin += decalage_lin;  // décale la ligne de début du couloir
 	}
 	return;
 }
 
 
-/* ajoute les couloirs verticaux */
-void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL])
+/* ajoute les couloirs verticaux, et un ennemi devant
+ * chaque couloir si le paramètre ennemi vaut true */
+void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL], bool ennemi)
 {	
-	int tmp_ori_couloir_v_lin = ORI_COULOIR_V_LIN;
-	int couloir_lin = ORI_COULOIR_V_LIN;
-	
-	for (int rangee = 0; rangee < calcul_nbr_rangee_couloirs() - 1; rangee++) // "-1" car on a 1 rangée de couloirs verticaux de moins que d'horizontaux
+	// seuil (colonne) à ne pas dépasser pour ne pas sortir de la map :
+	int seuil_col = MAP_COL - (SAL_COL / 2);
+	// (colonne) d'un couloir au suivant (- 2 car le couloir commence dans la salle) :
+	int decalage_col = LONG_COULOIR_H + SAL_COL - 2;
+	// décalage (ligne) d'un couloir au suivant (- 2 car le couloir commence dans la salle) :
+	int decalage_lin = LONG_COULOIR_V + SAL_LIN - 2;
+
+	int debut_coul_lin = ORI_COULOIR_V_LIN;  // ligne de début du couloir actuel
+
+	// parcourt les rangées de couloirs horizontalement ; -1 car il y a
+	// 1 rangée de couloirs verticaux de moins que de couloirs horizontaux
+	for (int rangee = 0; rangee < calcul_nbr_rangee_couloirs() - 1; rangee++)
 	{
-		for (int ligne = 0; ligne < LONG_COULOIR_V; ligne++) 
-		// le couloir prend 4 lignes
+		//debut_coul_col : colonne du côté gauche du couloir et le couloir ne doit pas dépasser la map (d'où 4 la largeur du couloir)
+		for (int debut_coul_col = ORI_COULOIR_V_COL; debut_coul_col < seuil_col; debut_coul_col += decalage_col)  
 		{
-			for (int ori_coul_actuel = ORI_COULOIR_V_COL; ori_coul_actuel < MAP_COL - SAL_COL; ori_coul_actuel += LONG_COULOIR_H + SAL_COL - 2)  
-			//ori_coul_actuel est la colonne du côté gauche du couloir et le couloir ne doit pas dépasser la map (d'où 4 la largeur du couloir)
+			for (int lin = 0; lin < LONG_COULOIR_V; lin++)  // ajoute le couloir, ligne par ligne
 			{
-				//map[tmp_ori_couloir_v_lin][ori_coul_actuel]= MUR;
-				map[tmp_ori_couloir_v_lin][ori_coul_actuel + 1] = MUR;
-				map[couloir_lin-1][ori_coul_actuel + 2] = ENNEMI;
-				
-				map[tmp_ori_couloir_v_lin][ori_coul_actuel + 2] = VIDE;
-				
-				map[tmp_ori_couloir_v_lin][ori_coul_actuel + 3] = MUR;
+				map[debut_coul_lin + lin][debut_coul_col + 0] = MUR;                 
+				map[debut_coul_lin + lin][debut_coul_col + 1] = VIDE;
+				map[debut_coul_lin + lin][debut_coul_col + 2] = MUR;
 			}
-			tmp_ori_couloir_v_lin += 1;
+			if (ennemi) // place un ennemi devant le couloir
+			{
+				map[debut_coul_lin - 1][debut_coul_col + 1] = ENNEMI;
+			}
 		}
-		couloir_lin += LONG_COULOIR_V + SAL_LIN - 2;
-		tmp_ori_couloir_v_lin += LONG_COULOIR_V + SAL_LIN - 6; 
-		//"-6" car il faut retirer les 4 rajoutés dans la boucle précédente
+		debut_coul_lin += decalage_lin; 
 	}
 	return;
 }

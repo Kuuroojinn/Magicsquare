@@ -22,11 +22,12 @@ void initialise_salle(struct salle* s);
 /* ajoute les éléments de la salle dans la map */
 void ajoute_salle(struct salle s, int map[MAP_LIN][MAP_COL]);
 
-/* ajoute les couloirs horizontaux */
+/* ajoute les couloirs horizontaux, et un ennemi devant
+ * chaque couloir si le paramètre ennemi vaut true */
 void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL], bool ennemi);
 
 /* ajoute les couloirs verticaux */
-void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL]);
+void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL], bool ennemi);
 
 /* Créer automatiquement les salles*/
 void creation_salles(int map[MAP_LIN][MAP_COL]);
