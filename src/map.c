@@ -5,7 +5,7 @@
 #include "affichage.h"
 
 
-// map contient 32 lignes et 128 colonnes
+// dimensions d'une map
 const int MAP_LIN = 32;
 const int MAP_COL = 128;
 
