@@ -4,10 +4,11 @@
 #include "joueur.h"
 #include "affichage.h"
 
+const int MULTIPLICATEUR = 1;  // DEBUG : sert à faire des maps grandes rapidement
 
 // dimensions d'une map
-const int MAP_LIN = 32;
-const int MAP_COL = 128;
+const int MAP_LIN = 32 * MULTIPLICATEUR;
+const int MAP_COL = 128 * MULTIPLICATEUR;
 
 
 /* remplit la map de VIDE */

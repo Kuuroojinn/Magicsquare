@@ -1,6 +1,7 @@
 #ifndef SALLE_H
 #define SALLE_H
 
+#include <stdbool.h>
 #include "map.h"
 
 #define SAL_LIN 8   // dimensions standard d'une salle (bord extérieur INCLUS)
@@ -22,7 +23,7 @@ void initialise_salle(struct salle* s);
 void ajoute_salle(struct salle s, int map[MAP_LIN][MAP_COL]);
 
 /* ajoute les couloirs horizontaux */
-void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL]);
+void ajoute_couloirs_h(int map[MAP_LIN][MAP_COL], bool ennemi);
 
 /* ajoute les couloirs verticaux */
 void ajoute_couloirs_v(int map[MAP_LIN][MAP_COL]);
