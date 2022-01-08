@@ -67,7 +67,9 @@ int main()
 		if (inputchar == KEY_UP   || inputchar == KEY_DOWN ||
 			inputchar == KEY_LEFT || inputchar == KEY_RIGHT )
 		{
+			echo();     //Affiche la saisie du joueur pendant les combats
 			deplacement(&j1, map1, inputchar,&e1);
+			noecho();
 		}
 	}
 
