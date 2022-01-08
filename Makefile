@@ -4,7 +4,7 @@
 
 # le jeu final
 main: main.o map.o joueur.o salles.o move.o affichage.o ennemi.o
-	gcc main.o map.o salles.o joueur.o move.o affichage.o -o main -lncurses
+	gcc main.o map.o salles.o joueur.o move.o affichage.o ennemi.o -o main -lncurses
 
 main.o: src/main.c src/map.h src/salles.h src/joueur.h src/move.h src/affichage.h src/ennemi.h
 	gcc -c src/main.c
@@ -18,7 +18,7 @@ salles.o: src/salles.c src/salles.h src/map.h
 joueur.o: src/joueur.c src/joueur.h
 	gcc -c src/joueur.c
 
-move.o: src/move.c src/map.h
+move.o: src/move.c src/map.h src/ennemi.h
 	gcc -c src/move.c -lncurses
 
 affichage.o: src/affichage.c src/affichage.h src/joueur.h src/map.h
