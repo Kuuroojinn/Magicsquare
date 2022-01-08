@@ -128,7 +128,7 @@ bool ennemi_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL]) {
 
 // Modifie la position du joueur en fonction de l'entrée au clavier
 // (on suppose que le déplacement est valide)
-void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar)
+void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar, struct ennemi* e_ptr)
 {
 	// le joueur doit être dans la map
 	assert_joueur_dans_map(*j_ptr, map);
@@ -142,6 +142,13 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar)
 		if (!elt_en_haut(*j_ptr, map))  // si la voie est libre
 		{
 			j_ptr->pos_lin -= 1;  // vrai déplacement
+		} 
+		else if (ennemi_en_haut(*j_ptr,map)) 
+		{
+			if (combat(j_ptr,e_ptr)) 
+			{
+				map[j_ptr->pos_lin - 1][j_ptr->pos_col] = VIDE;  //remplace la case ou était l'ennemi par du vide
+			}
 		}
 	}
 
@@ -153,6 +160,13 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar)
 		{
 			j_ptr->pos_lin += 1;
 		}
+		else if (ennemi_en_bas(*j_ptr,map))
+		{
+			if (combat(j_ptr,e_ptr))
+			{
+				map[j_ptr->pos_lin + 1][j_ptr->pos_col] = VIDE;
+			}
+		}
 	}
 
 	else if (inputchar == KEY_LEFT)
@@ -163,6 +177,13 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar)
 		{
 			j_ptr->pos_col -= 1;
 		}
+		else if (ennemi_a_gauche(*j_ptr,map))
+		{
+			if (combat(j_ptr,e_ptr))
+			{
+				map[j_ptr->pos_lin][j_ptr->pos_col - 1] = VIDE;
+			}
+		}
 	}
 
 	else if (inputchar == KEY_RIGHT)
@@ -172,6 +193,13 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar)
 		if ( !elt_a_droite(*j_ptr, map))
 		{	
 			j_ptr->pos_col += 1;
+		}
+		else if (ennemi_a_droite(*j_ptr,map))
+		{
+			if (combat(j_ptr,e_ptr)) 
+			{
+				map[j_ptr->pos_lin][j_ptr->pos_col + 1] = VIDE;
+			}
 		}
 	}
 

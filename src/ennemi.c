@@ -30,6 +30,7 @@ bool combat (struct joueur* j, struct ennemi* e){
 	}
 	
 	int pv_max = j->pv;
+	int pv_ennemi = e->pv;
 	while ((j->pv > 0) && (e->pv >0)){
 		printw("Vous : %d | Ennemi : %d",j->pv,e->pv);
 		printw("Que voulez vous faire : attaquer[a] ou defendre[d] ? ");
@@ -57,9 +58,12 @@ bool combat (struct joueur* j, struct ennemi* e){
 	if (e->pv <= 0) {
 		j->atk +=1;
 		j->pv = pv_max;
+		e->pv = pv_ennemi;
+		
 		return true;
 	} else {
 		j->pv = pv_max;
+		e->pv = pv_ennemi;
 		return false;
 	}
 	return false;
