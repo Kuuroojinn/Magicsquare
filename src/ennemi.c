@@ -57,9 +57,9 @@ bool combat (struct joueur* j, struct ennemi* e){
 	}
 	if (e->pv <= 0) {
 		j->atk +=1;
-		j->pv = pv_max;
-		e->pv = pv_ennemi;
-		
+		j->pv = pv_max;         //Remets les pv du joueur a ceux d'avant le combat
+		e->pv = pv_ennemi + 5; //la vie des ennemis augmente au fur et a mesure pour rajouter un peu de difficulté (peut être modifié)
+		e->atk = e->atk + rand()&1; //Augmente de 1 ou de 0 l'attaque de l'adversaire pour corser le jeu
 		return true;
 	} else {
 		j->pv = pv_max;
