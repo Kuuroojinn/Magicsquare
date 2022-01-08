@@ -91,17 +91,6 @@ void affiche_char_val(int val, int lin, int col)
             attroff(COLOR_PAIR(COULEUR_JOUEUR));
             break;
 
-        case PV_VIDE:
-        	attron(COLOR_PAIR(COULEUR_PV_VIDE));
-        	mvaddch(lin, col, CHR_PV);
-        	attroff(COLOR_PAIR(COULEUR_PV_VIDE));
-        	break;
-
-        case PV_PLEIN:
-        	attron(COLOR_PAIR(COULEUR_PV_PLEIN));
-        	mvaddch(lin, col, CHR_PV);
-        	attroff(COLOR_PAIR(COULEUR_PV_PLEIN));
-        	break;
 		case ENNEMI:
 			attron(COLOR_PAIR(COULEUR_ENNEMI));
 			mvaddch(lin, col, CHR_ENNEMI);
