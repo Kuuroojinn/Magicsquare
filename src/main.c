@@ -4,6 +4,7 @@
 #include "salles.h"
 #include "joueur.h"
 #include "move.h"
+#include "ennemi.h"
 #include "affichage.h"
 
 int main()
@@ -33,6 +34,10 @@ int main()
 		5,       // pv
 		4        // atk
 	};
+	struct ennemi e1 = {
+		10,
+		15
+	};
 
     int map1[MAP_LIN][MAP_COL];
     initialise_map(map1);
@@ -40,7 +45,7 @@ int main()
     // salles de test (tjs démonstration)
     creation_salles(map1);
 
-    ajoute_couloirs_h(map1, false);  // true : les ennemis sont présents
+    ajoute_couloirs_h(map1, true);  // true : les ennemis sont présents
     ajoute_couloirs_v(map1, true);
 	
 
