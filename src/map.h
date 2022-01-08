@@ -17,6 +17,7 @@ const int MAP_COL;
 #define JOUEUR_GAUCHE 4
 #define JOUEUR_DROITE 5
 #define ENNEMI 6
+#define END 7
 
 
 /* remplit la map de VIDE */
