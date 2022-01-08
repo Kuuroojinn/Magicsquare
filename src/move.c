@@ -26,12 +26,16 @@ bool elt_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL])
 }
 
 //Renvoie true si la case au dessus du joueur est un ennemi
-bool ennemi_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL]) {
+bool ennemi_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL]) 
+{
 	assert_joueur_dans_map(j,map);
+	
 	if (j.pos_lin == 0)
 		return false;
+		
 	else if (map[j.pos_lin - 1][j.pos_col] == ENNEMI)
 		return true;
+		
 	else 
 		return false;
 }
@@ -56,12 +60,16 @@ bool elt_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL])
 }
 
 //Renvoie true si la case au dessus du joueur est un ennemi
-bool ennemi_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL]) {
+bool ennemi_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL]) 
+{
 	assert_joueur_dans_map(j,map);
+	
 	if (j.pos_lin == MAP_LIN - 1)
 		return false;
+		
 	else if (map[j.pos_lin + 1][j.pos_col] == ENNEMI)
 		return true;
+		
 	else
 		return false;
 }
@@ -85,12 +93,16 @@ bool elt_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL])
 }
 
 //Renvoie true si la case à gauche du joueur est un ennemi
-bool ennemi_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL]) {
+bool ennemi_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL])
+{
 	assert_joueur_dans_map(j,map);
+	
 	if (j.pos_col == 0)
 		return false;
+		
 	else if (map[j.pos_lin][j.pos_col - 1] == ENNEMI)
 		return true;
+		
 	else 
 		return false;
 }
@@ -115,12 +127,16 @@ bool elt_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL])
 }
 
 //renvoie true si la case à droite du joueur est un ennemi
-bool ennemi_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL]) {
+bool ennemi_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL]) 
+{
 	assert_joueur_dans_map(j,map);
+	
 	if (j.pos_col == MAP_COL - 1)
 		return false;
+		
 	else if (map[j.pos_lin][j.pos_col + 1] == ENNEMI) 
 		return true;
+		
 	else 
 		return false;
 }
