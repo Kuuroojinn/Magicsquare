@@ -31,7 +31,7 @@ int main()
 		4,       // pos_lin
 		9,       // pos_col
 		DROITE,  // dir
-		5,       // pv
+		115,       // pv
 		4        // atk
 	};
 	struct ennemi e1 = {
@@ -67,7 +67,7 @@ int main()
 		if (inputchar == KEY_UP   || inputchar == KEY_DOWN ||
 			inputchar == KEY_LEFT || inputchar == KEY_RIGHT )
 		{
-			deplacement(&j1, map1, inputchar);
+			deplacement(&j1, map1, inputchar,&e1);
 		}
 	}
 
