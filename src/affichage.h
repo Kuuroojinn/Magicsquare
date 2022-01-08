@@ -20,8 +20,7 @@ void affiche_char_val(int val, int lin, int col);
  * dans un écran de dimensions scr_lin lignes par scr_col colonnes */
 void affiche_bordures(int scr_lin, int scr_col);
 
-/* affiche une string dans la zone de texte, à la ligne indiquée.
- * taille de l'écran : (scr_lin x scr_col) */
-void affiche_texte(int scr_lin, int scr_col, int ligne, char* string);
+/* affiche une string dans la zone de texte, à la ligne indiquée. */
+void affiche_texte(int ligne, char* string);
 
 #endif

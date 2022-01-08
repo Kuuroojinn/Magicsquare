@@ -51,10 +51,7 @@ int main()
 
 	affiche_bordures(SCR_LIN, SCR_COL);
 
-	affiche_texte(SCR_LIN, SCR_COL, 0, "Bienvenue, aventurier !");
-	affiche_texte(SCR_LIN, SCR_COL, 1, "Ligne 1");
-	affiche_texte(SCR_LIN, SCR_COL, 2, "Ligne 2!");
-	affiche_texte(SCR_LIN, SCR_COL, 3, "Ligne 3!");
+
 
 	// gameloop temporaire
 

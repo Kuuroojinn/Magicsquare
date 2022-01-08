@@ -10,8 +10,8 @@ struct ennemi{
 	int ye;
 };
 
-//Fonction de combat contre un ennemi présent sur la map
-//Renvoie true si le combat est gagné par le joueur
+/*Fonction de combat contre un ennemi présent sur la map
+ * Renvoie true si le combat est gagné par le joueur */
 bool combat (struct joueur* j, struct ennemi* e);
 
 #endif
