@@ -1,4 +1,9 @@
 #include <ncurses.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <stdbool.h>
+#include <time.h>
 #include "joueur.h"
 
 
@@ -15,32 +20,50 @@ struct ennemi {
 struct ennemi e1 = {1};
 
 
-void combat(struct joueur* j, struct ennemi* e)
-{
+bool combat (struct joueur* j, struct ennemi* e){
+	char entree;
+	int action;
+	printw("Etes-vous sur de vouloir combattre ? Oui[o] ou Non [n]");
+	scanw("%s",&entree);
+	if (entree == 'n'){
+		return false;   //ON considère donc que le joueur a perdu le combat
+	}
+	
 	int pv_max = j->pv;
-
-	while ((j->pv > 0) && (e->pv >0))
-	{
-		char entree;
+	while ((j->pv > 0) && (e->pv >0)){
 		printw("Vous : %d | Ennemi : %d",j->pv,e->pv);
 		printw("Que voulez vous faire : attaquer[a] ou defendre[d] ? ");
 		scanw("%s",&entree);
-		if (entree == 'a')
-		{
-			e->pv = e->pv - j->atk;
+		if (entree == 'a') {
+			action = rand()&1; //Genere un nombre aléatoire entre 0 et 1
+			if (action == 0) {
+				printw("L'adversaire attaque aussi\n");
+				e->pv = e->pv - j->atk;
+				j->pv = j->pv - e->atk;
+			} else {
+				printw("L'adversaire se défends\n");
+				e->pv = e->pv - (j->atk / 2);
+			}
+		} else if (entree == 'd') {
+			action = rand()&1;
+			if (action == 0) {
+				printw("L'aversaire se défends\n");
+				j->pv = j->pv - (e->pv / 2);
+			} else {
+				printw("L'adversaire se défends aussi\n");
+			}
 		}
 	}
-	if (e->pv <= 0)
-	{
+	if (e->pv <= 0) {
 		j->atk +=1;
 		j->pv = pv_max;
-	}
-	else
-	{
+		return true;
+	} else {
 		j->pv = pv_max;
+		return false;
 	}
-}
-		
+	return false;
+}		
 /* Je compte rajouter le système de combat :
  * - quand tu bump un ennemi, on te demande si tu veux combattre
  * - si oui, tu choisis entre te défendre ou attaquer (penser a rajouter atk et pv pour les ennemis et le joueur)
