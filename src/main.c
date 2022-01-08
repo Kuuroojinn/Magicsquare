@@ -18,10 +18,10 @@ int main()
 	start_color();
 	setup_couleur();
 
-	// récupération de la taille de l'écran
-	int SCR_LIN;  // taille écran : lignes
-    int SCR_COL;  // et colonnes
-    getmaxyx(stdscr, SCR_LIN, SCR_COL);
+	/* récupération de la taille de l'écran : */
+	int SCR_LIN;                         // taille de l'écran : lignes
+	int SCR_COL;                         // et colonnes ;
+	getmaxyx(stdscr, SCR_LIN, SCR_COL);  // récupère la taille
 
 
 	/////////////////////  DEBUT DU JEU  ///////////////////////////
@@ -49,7 +49,12 @@ int main()
     ajoute_couloirs_v(map1, true);
 	
 
-	affiche_bordure(SCR_LIN, SCR_COL);
+	affiche_bordures(SCR_LIN, SCR_COL);
+
+	affiche_texte(SCR_LIN, SCR_COL, 0, "Bienvenue, aventurier !");
+	affiche_texte(SCR_LIN, SCR_COL, 1, "Ligne 1");
+	affiche_texte(SCR_LIN, SCR_COL, 2, "Ligne 2!");
+	affiche_texte(SCR_LIN, SCR_COL, 3, "Ligne 3!");
 
 	// gameloop temporaire
 

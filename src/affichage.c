@@ -1,4 +1,6 @@
 #include <ncurses.h>
+#include <string.h>
+#include <assert.h>
 #include "affichage.h"
 #include "joueur.h"
 #include "map.h"
@@ -7,9 +9,7 @@
 // contient toutes les fonctions liées à l'affichage
 
 
-
 /* caractères pour affiche_char_val() */
-//const char CHR_VIDE = '.';
 #define CHR_VIDE ACS_BULLET
 const char CHR_MUR = ' ';
 const char CHR_JOUEUR_HAUT = '^';
@@ -20,6 +20,7 @@ const char CHR_ERREUR = '?';
 const char CHR_ENNEMI = '!';
 #define CHR_PV ACS_DIAMOND
 
+
 /* couleurs pour affiche_char_val() 
  * NB : ne pas utiliser 0, ça ne marche pas */
 const int COULEUR_VIDE = 1;
@@ -29,8 +30,12 @@ const int COULEUR_PV_VIDE = 4;
 const int COULEUR_PV_PLEIN = 5;
 const int COULEUR_ENNEMI = 6;
 
-/* éléments additionnels affichables :
- * PV_VIDE, PV_PLEIN (case représentant un point de vie) */
+
+/* dimensions de la zone de texte */
+const int TAILLE_ZONE_TXT_LIN = 4;
+const int TAILLE_ZONE_TXT_COL = 128;
+
+
 
 /* affecte les paires de couleur à leur indice */
 void setup_couleur()
@@ -111,15 +116,25 @@ void affiche_char_val(int val, int lin, int col)
 
 
 
-/* affiche la map au centre de l'écran de dimensions 
- * scr_lin lignes par scr_col colonnes */
+/* affiche la map au centre de l'écran, moins un décalage pour la zone de texte 
+ * dimensions écran : (scr_lin x scr_col) */
 void affiche_map(int map[MAP_LIN][MAP_COL], int scr_lin, int scr_col)
 {
+    assert(scr_lin > 0);  // la taille de l'écran est strictement positive
+    assert(scr_col > 0);
+
     // coordonnées du coin supérieur gauche de la map dans l'écran
     int start_lin, start_col;
-    start_lin = (scr_lin - MAP_LIN) / 2;
+    // centre du décalage entre la map et l'écran :
+    start_lin = (scr_lin - MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;  // - TAILLE_ZONE_TXT_LIN : décalage
     start_col = (scr_col - MAP_COL) / 2;
     
+    // l'affichage doit bien se faire dans l'écran
+    assert(start_lin >= 0);
+    assert(start_lin + MAP_LIN <= scr_lin);
+    assert(scr_col >= 0);
+    assert(start_col + MAP_COL <= scr_col);
+
 
     int current_lin = start_lin;  // sera itéré pour placer le caractère
     int current_col = start_col;  // à cet emplacement sur l'écran
@@ -137,57 +152,93 @@ void affiche_map(int map[MAP_LIN][MAP_COL], int scr_lin, int scr_col)
         }
 
         current_lin++;  // ligne suivante
-        current_col = start_col;  // revenir au début
+        current_col = start_col;  // revenir à la pemière colonne
     }
     refresh();
     return;
 }
 
 
-/* affiche une bordure autour de la map, dans un écran
- * de dimensions scr_lin lignes par scr_col colonnes */
- //Ne fonctionne pas sur tous les pc (surement mon terminal qui est mal paramétré)
-void affiche_bordure(int scr_lin, int scr_col)
+
+/* affiche une bordure autour de la map et une autour de la zone de texte,
+ * dans un écran de dimensions scr_lin lignes par scr_col colonnes */
+void affiche_bordures(int scr_lin, int scr_col)
 {
-	/* calcul du placement de la map sur l'écran : 
-    // coordonnées du coin supérieur gauche de la map dans l'écran */
-    int start_lin, start_col;
-    start_lin = (scr_lin - MAP_LIN) / 2;
+    assert(scr_lin > 0);  // la taille de l'écran est strictement positive
+    assert(scr_col > 0);
+
+	/* calcul du placement de la bordure sur l'écran */
+    int map_start_lin, txt_start_lin, start_col;
+    // ligne du coin supérieur gauche de la map :
+    map_start_lin = (scr_lin - MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;
+    // ligne du coin sup. gauche de la zone de texte :
+    txt_start_lin = (scr_lin + MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;
+    // colonne du coin sup. gauche des deux zones ci-dessus :
     start_col = (scr_col - MAP_COL) / 2;
-    
-    /* lignes : */
-    // haut
-    move(start_lin - 1, start_col);
-    hline(ACS_HLINE, MAP_COL);  // trace la ligne
 
-    // bas
-    move(start_lin + MAP_LIN, start_col);
-    hline(ACS_HLINE, MAP_COL);
+    int taille_bord_lin, taille_bord_col;  // dimensions de la bordure
 
-    //gauche
-    move(start_lin, start_col - 1);
-    vline(ACS_VLINE, MAP_LIN);
+    int start_lin;  // ligne de départ
+    for (int iter = 0; iter < 2; iter++)  // itération pour chaque bordure
+    {
+        if (iter == 0)  // bordure de la map
+        {
+            start_lin = map_start_lin;
+            taille_bord_lin = MAP_LIN;
+            taille_bord_col = MAP_COL;
+        }
+        else  // bordure de la zone de texte
+        {
+            start_lin = txt_start_lin + 2;  // + 2 car il y a les deux lignes
+            taille_bord_lin = TAILLE_ZONE_TXT_LIN;
+            taille_bord_col = TAILLE_ZONE_TXT_COL;
+        }
 
-    // droite
-    move(start_lin, start_col + MAP_COL);
-    vline(ACS_VLINE, MAP_LIN);
+        /* lignes : */
+        // haut
+        move(start_lin - 1, start_col);
+        hline(ACS_HLINE, taille_bord_col);  // trace la ligne   
 
-    // coins
-    mvaddch(start_lin - 1, start_col - 1, ACS_ULCORNER);
-    mvaddch(start_lin - 1, start_col + MAP_COL, ACS_URCORNER);
-    mvaddch(start_lin + MAP_LIN, start_col - 1, ACS_LLCORNER);
-    mvaddch(start_lin + MAP_LIN, start_col + MAP_COL, ACS_LRCORNER);
-    
+        // bas
+        move(start_lin + taille_bord_lin, start_col);
+        hline(ACS_HLINE, taille_bord_col);  
+
+        //gauche
+        move(start_lin, start_col - 1);
+        vline(ACS_VLINE, taille_bord_lin);  
+
+        // droite
+        move(start_lin, start_col + taille_bord_col);
+        vline(ACS_VLINE, taille_bord_lin);  
+
+        // coins
+        mvaddch(start_lin - 1, start_col - 1, ACS_ULCORNER);
+        mvaddch(start_lin - 1, start_col + taille_bord_col, ACS_URCORNER);
+        mvaddch(start_lin + taille_bord_lin, start_col - 1, ACS_LLCORNER);
+        mvaddch(start_lin + taille_bord_lin, start_col + taille_bord_col, ACS_LRCORNER);
+    }
+
     refresh();
     return;
 }
 
 
-/* affiche les points de vie restants du joueur *
-void affiche_pv(struct joueur j)
-{
-	move()
 
-	return;
+/* affiche une string dans la zone de texte, à la ligne indiquée.
+ * taille de l'écran : (scr_lin x scr_col) */
+void affiche_texte(int scr_lin, int scr_col, int ligne, char* string)
+{
+    assert(scr_lin > 0);  // taille de l'écran strictement positive
+    assert(scr_col > 0);
+    assert(ligne >= 0);                   // la ligne doit exister
+    assert(ligne < TAILLE_ZONE_TXT_LIN);  // dans la zone de texte
+
+    /* coordonnées du début (haut, gauche) la zone de texte :
+     * - TAILLE_ZONE_TXT_LIN : décalage du texte
+     * + 2 : pour les bordures */
+    int zone_txt_lin = (scr_lin + MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN + 2 + ligne;  
+    int zone_txt_col = (scr_col - MAP_COL) / 2;
+
+    mvprintw(zone_txt_lin, zone_txt_col, string);
+    return;
 }
-*/
