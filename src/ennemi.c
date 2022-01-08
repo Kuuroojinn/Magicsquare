@@ -30,7 +30,7 @@ bool combat (struct joueur* j, struct ennemi* e){
 	if (entree == 'o'){
 	
 		while ((j->pv > 0) && (e->pv >0)){
-			printw("Vous : %d | Ennemi : %d",j->pv,e->pv);
+			printw("Vous : %d | Ennemi : %d    ",j->pv,e->pv);
 			printw("Que voulez vous faire : attaquer[a] ou defendre[d] ? ");
 			scanw("%s",&entree);
 			if (entree == 'a') {
