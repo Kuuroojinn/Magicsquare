@@ -5,10 +5,6 @@
 
 const int COUL_MUR;
 
-// éléments additionnels à afficher :
-#define PV_VIDE 20
-#define PV_PLEIN 21
-
 /* affecte les paires de couleur à leur indice */
 void setup_couleur();
 
@@ -20,8 +16,12 @@ void affiche_map(int map[MAP_LIN][MAP_COL], int scr_lin, int scr_col);
  * aux coordonnées lin, col */
 void affiche_char_val(int val, int lin, int col);
 
-/* affiche une bordure autour de la map, dans un écran
- * de dimensions scr_lin lignes par scr_col colonnes */
-void affiche_bordure(int scr_lin, int scr_col);
+/* affiche une bordure autour de la map et une autour de la zone de texte,
+ * dans un écran de dimensions scr_lin lignes par scr_col colonnes */
+void affiche_bordures(int scr_lin, int scr_col);
+
+/* affiche une string dans la zone de texte, à la ligne indiquée.
+ * taille de l'écran : (scr_lin x scr_col) */
+void affiche_texte(int scr_lin, int scr_col, int ligne, char* string);
 
 #endif

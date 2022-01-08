@@ -3,13 +3,11 @@
 
 #include "joueur.h"
 
-
-// dimensions de la map
+// dimensions de la map :
 const int MAP_LIN;
 const int MAP_COL;
 
-
-/* éléments que peut contenir la map ;
+/* éléments que peut contenir la map.
  * NB : #define employé pour pouvoir utiliser switch dans affichage.c */
 #define VIDE 0
 #define MUR 1
@@ -19,9 +17,6 @@ const int MAP_COL;
 #define JOUEUR_GAUCHE 4
 #define JOUEUR_DROITE 5
 #define ENNEMI 6
-
-//#define ENNEMI 6
-//#define BLOC 7
 
 
 /* remplit la map de VIDE */
