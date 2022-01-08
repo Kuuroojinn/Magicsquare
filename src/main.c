@@ -31,12 +31,12 @@ int main()
 		4,       // pos_lin
 		9,       // pos_col
 		DROITE,  // dir
-		115,       // pv
+		115,     // pv
 		4        // atk
 	};
 	struct ennemi e1 = {
-		10,
-		15
+		10, //pv
+		15  //atk
 	};
 
     int map1[MAP_LIN][MAP_COL];
@@ -67,9 +67,9 @@ int main()
 		if (inputchar == KEY_UP   || inputchar == KEY_DOWN ||
 			inputchar == KEY_LEFT || inputchar == KEY_RIGHT )
 		{
-			echo();     //Affiche la saisie du joueur pendant les combats
+			echo();     	//Affiche la saisie du joueur pendant les combats
 			deplacement(&j1, map1, inputchar,&e1);
-			noecho();
+			noecho();	//Arrete d'afficher la saisie un fois le combat terminé
 		}
 	}
 
