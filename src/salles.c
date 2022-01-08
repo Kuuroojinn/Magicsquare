@@ -111,6 +111,7 @@ void creation_salles(int map[MAP_LIN][MAP_COL])
 		{
 			ajoute_salle(s, map);
 		}
+	
 	}
 	return;
 }

@@ -40,6 +40,18 @@ bool ennemi_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL])
 		return false;
 }
 
+//renvoie true si la case de fin est au dessus du joueur
+bool end_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL])
+{
+	assert_joueur_dans_map(j,map);
+	
+	if (map[j.pos_lin - 1][j.pos_col] == END)
+		return true;
+		
+	else
+		return false;
+}
+
 
 /* renvoie true si la case au-dessous du joueur n'est pas vide */
 bool elt_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL])
@@ -70,6 +82,18 @@ bool ennemi_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL])
 	else if (map[j.pos_lin + 1][j.pos_col] == ENNEMI)
 		return true;
 		
+	else
+		return false;
+}
+
+//renvoie true si la case de fin est en dessous du joueur
+bool end_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL])
+{
+	assert_joueur_dans_map(j,map);
+	
+	if (map[j.pos_lin + 1][j.pos_col] == END)
+		return true;
+	
 	else
 		return false;
 }
@@ -107,6 +131,18 @@ bool ennemi_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL])
 		return false;
 }
 
+//Renvoie true si la case de fin est a droite du joueur
+bool end_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL])
+{
+	assert_joueur_dans_map(j,map);
+	
+	if (map[j.pos_lin][j.pos_col - 1] == END)
+		return true;
+	
+	else
+		return false;
+}
+
 
 /* renvoie true si la case à droite du joueur n'est pas vide */
 bool elt_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL])
@@ -141,6 +177,20 @@ bool ennemi_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL])
 		return false;
 }
 
+//renvoie true si la case de fin est a gauche du joueur
+bool end_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL])
+{
+	assert_joueur_dans_map(j,map);
+	
+	if (map[j.pos_lin][j.pos_col + 1] == END)
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
 
 // Modifie la position du joueur en fonction de l'entrée au clavier
 // (on suppose que le déplacement est valide)
@@ -166,6 +216,10 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 				map[j_ptr->pos_lin - 1][j_ptr->pos_col] = VIDE;  //remplace la case ou était l'ennemi par du vide
 			}
 		}
+		else if (end_en_haut(*j_ptr,map))
+		{
+			printw("Bravo, vous avez atteint la fin !");
+		}
 	}
 
 	else if (inputchar == KEY_DOWN)
@@ -182,6 +236,10 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 			{
 				map[j_ptr->pos_lin + 1][j_ptr->pos_col] = VIDE;
 			}
+		}
+		else if (end_en_bas(*j_ptr,map))
+		{
+			printw("Bravo, vous avez atteint la fin !");
 		}
 	}
 
@@ -200,6 +258,10 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 				map[j_ptr->pos_lin][j_ptr->pos_col - 1] = VIDE;
 			}
 		}
+		else if (end_a_gauche(*j_ptr,map)) 
+		{
+			printw("Bravo, vous avez atteint la fin !");
+		}
 	}
 
 	else if (inputchar == KEY_RIGHT)
@@ -216,6 +278,10 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 			{
 				map[j_ptr->pos_lin][j_ptr->pos_col + 1] = VIDE;
 			}
+		}
+		else if (end_a_droite(*j_ptr,map))
+		{
+			printw("Bravo, vous avez atteint la fin !");
 		}
 	}
 
