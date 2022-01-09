@@ -19,6 +19,7 @@ const char CHR_JOUEUR_GAUCHE = '<';
 const char CHR_JOUEUR_DROITE = '>';
 const char CHR_ERREUR = '?';
 const char CHR_ENNEMI = '!';
+const char CHR_END = '"';
 #define CHR_PV ACS_DIAMOND
 
 
@@ -30,6 +31,7 @@ const int COULEUR_JOUEUR = 3;
 const int COULEUR_PV_VIDE = 4;
 const int COULEUR_PV_PLEIN = 5;
 const int COULEUR_ENNEMI = 6;
+const int COULEUR_END = 7;
 
 
 ///////////////////////// SETUP DE L'AFFICHAGE /////////////////////////
@@ -72,6 +74,7 @@ void setup_couleur()
     init_pair(COULEUR_PV_VIDE, COLOR_BLACK, COLOR_WHITE);
     init_pair(COULEUR_PV_PLEIN, COLOR_RED, COLOR_WHITE);
     init_pair(COULEUR_ENNEMI, COLOR_BLUE, COLOR_WHITE);
+    init_pair(COULEUR_END, COLOR_WHITE, COLOR_BLUE);
 }
 
 
@@ -121,6 +124,12 @@ void affiche_char_val(int val, int lin, int col)
 			attron(COLOR_PAIR(COULEUR_ENNEMI));
 			mvaddch(lin, col, CHR_ENNEMI);
 			attroff(COLOR_PAIR(COULEUR_ENNEMI));
+			break;
+			
+		case END:
+			attron(COLOR_PAIR(COULEUR_END));
+			mvaddch(lin,col,CHR_END);
+			attroff(COLOR_PAIR(COULEUR_END));
 			break;
 
         default:  // erreur
