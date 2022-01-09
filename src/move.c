@@ -104,15 +104,16 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		} 
 		else if (test_elt_en_haut(*j_ptr, map, ENNEMI)) 
 		{
-			if (combat(j_ptr,e_ptr))  // lance un combat ; s'il est gagné :
+			pivote_joueur_vers_map(*j_ptr, map);  // le joueur se tourne vers l'ennemi
+			affiche_map(map);                     // et on l'affiche
+			if (combat(j_ptr,e_ptr))              // lance un combat ; s'il est gagné :
 			{
 				map[j_ptr->pos_lin - 1][j_ptr->pos_col] = VIDE;  // remplace la case où était l'ennemi par du vide
 			}
 		}
 		else if (test_elt_en_haut(*j_ptr, map, END))
 		{
-			efface_ligne_texte(0);
-			efface_ligne_texte(1);
+			efface_zone_texte();
 			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
 		}
 	}
@@ -127,6 +128,8 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_en_bas(*j_ptr, map, ENNEMI))
 		{
+			pivote_joueur_vers_map(*j_ptr, map);
+			affiche_map(map);
 			if (combat(j_ptr,e_ptr))
 			{
 				map[j_ptr->pos_lin + 1][j_ptr->pos_col] = VIDE;
@@ -134,8 +137,7 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_en_bas(*j_ptr, map, END))
 		{
-			efface_ligne_texte(0);
-			efface_ligne_texte(1);
+			efface_zone_texte();
 			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
 		}
 	}
@@ -150,6 +152,8 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_a_gauche(*j_ptr, map, ENNEMI))
 		{
+			pivote_joueur_vers_map(*j_ptr, map);
+			affiche_map(map);
 			if (combat(j_ptr,e_ptr))
 			{
 				map[j_ptr->pos_lin][j_ptr->pos_col - 1] = VIDE;
@@ -157,8 +161,7 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_a_gauche(*j_ptr, map, END)) 
 		{
-			efface_ligne_texte(0);
-			efface_ligne_texte(1);
+			efface_zone_texte();
 			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
 		}
 	}
@@ -173,6 +176,8 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_a_droite(*j_ptr, map, ENNEMI))
 		{
+			pivote_joueur_vers_map(*j_ptr, map);
+			affiche_map(map);
 			if (combat(j_ptr,e_ptr)) 
 			{
 				map[j_ptr->pos_lin][j_ptr->pos_col + 1] = VIDE;
@@ -180,8 +185,7 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_a_droite(*j_ptr, map, END))
 		{
-			efface_ligne_texte(0);
-			efface_ligne_texte(1);
+			efface_zone_texte();
 			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
 		}
 	}

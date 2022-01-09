@@ -49,10 +49,10 @@ int main()
 	affiche_bordures();
 
 	affiche_texte(0, (TAILLE_ZONE_TXT_COL - 28) / 2, "Bienvenue dans Magicsquare !");
-	affiche_char_val(END, ZONE_TXT_LIN + 1, ZONE_TXT_COL + 41);
-	affiche_texte(1, 0, "Le but du jeu est d'atteindre la sortie   , située dans la salle en bas à droite. Utilisez les flèches directionnelles pour vous");
-	affiche_texte(2, 0, "déplacer sur la carte. Affrontez les ennemis");
-	
+	affiche_texte(2, 0, "Le but du jeu est d'atteindre la sortie  , située dans la salle en bas à droite. Utilisez les flèches directionnelles pour vous");
+	affiche_char_val(END, ZONE_TXT_LIN + 2, ZONE_TXT_COL + 40);
+	affiche_texte(3, 0, "déplacer sur la carte. Affrontez les ennemis   en suivant les instructions. Bonne chance dans le donjon !");
+	affiche_char_val(ENNEMI, ZONE_TXT_LIN + 3, ZONE_TXT_COL + 45);
 
 
 
