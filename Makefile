@@ -21,7 +21,7 @@ joueur.o: src/joueur.c src/joueur.h
 move.o: src/move.c src/map.h src/ennemi.h
 	gcc -c src/move.c -lncurses
 
-affichage.o: src/affichage.c src/affichage.h src/joueur.h src/map.h
+affichage.o: src/affichage.c src/affichage.h src/joueur.h src/ennemi.h src/map.h
 	gcc -c src/affichage.c -lncurses
 	
 ennemi.o: src/ennemi.c src/joueur.h src/affichage.h

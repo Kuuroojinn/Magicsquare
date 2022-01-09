@@ -3,11 +3,12 @@
 
 #include "joueur.h"
 
-struct ennemi{
+// représente un ennemi
+struct ennemi {
 	int pv;
 	int atk;
-	int xe;
-	int ye;
+	int lin;  // position 
+	int col;
 };
 
 

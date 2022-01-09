@@ -8,16 +8,7 @@
 #include "affichage.h"
 
 
-/* differents types d'ennemis qui pourront exister
- * en plusieurs instances sur la map ? */
-
-struct ennemi {
-	int pv;
-	int atk;
-	int lin;  // position 
-	int col;
-};
-
+// un type d'ennemi qui a 1 pv
 struct ennemi e1 = {1};
 
 
@@ -28,10 +19,8 @@ void tour_de_combat(struct joueur* j, struct ennemi* e)
 	char entree;
 	int action_ennemi;
 
-	efface_ligne_texte(0);
-	efface_ligne_texte(1);
-	//affiche_texte(0, "Vous : %d | Ennemi : %d   ",j->pv,e->pv);
-	affiche_texte(1, 0, "Que voulez vous faire : attaquer[a] ou defendre[d] ? ");
+	affiche_pv_combat(*j, *e);
+	affiche_texte(1, 0, "Que voulez-vous faire : attaquer[a] ou defendre[d] ? ");
 	scanw("%s",&entree);
 	
 	if (entree == 'a')  // le joueur attaque
@@ -74,7 +63,6 @@ void tour_de_combat(struct joueur* j, struct ennemi* e)
  * Renvoie true si le combat est gagné par le joueur et false sinon */
 bool combat (struct joueur* j, struct ennemi* e)
 {
-
 	char entree;
 	int pv_max = j->pv;				// On garde les pv du joueur pour pouvoir s'en resservir par la suite
 	int pv_ennemi = e->pv;
@@ -86,6 +74,8 @@ bool combat (struct joueur* j, struct ennemi* e)
 	
 	while ((entree != 'o') || (entree != 'n'))
 	{
+		// DEBUG : 
+		mvaddch(ZONE_TXT_LIN + 4, ZONE_TXT)
 		if (entree == 'n')  // pas de combat
 		{
 			efface_ligne_texte(1);
@@ -96,6 +86,8 @@ bool combat (struct joueur* j, struct ennemi* e)
 		{
 			while ((j->pv > 0) && (e->pv > 0))  // Tant qu'aucun des combattants n'a les pv à 0 ou moins
 			{
+				efface_ligne_texte(0);
+				efface_ligne_texte(1);
 				tour_de_combat(j,  e);  // ils s'affrontent
 			}
 		} 

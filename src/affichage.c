@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "affichage.h"
 #include "joueur.h"
+#include "ennemi.h"
 #include "map.h"
 
 
@@ -31,9 +32,35 @@ const int COULEUR_PV_PLEIN = 5;
 const int COULEUR_ENNEMI = 6;
 
 
+///////////////////////// SETUP DE L'AFFICHAGE /////////////////////////
+
+/* dimensions de l'écran */
+int SCR_LIN, SCR_COL;
+
+/* coordonnées du coin supérieur gauche de la zone de texte : */
+int ZONE_TXT_LIN, ZONE_TXT_COL;
+
 /* dimensions de la zone de texte */
 const int TAILLE_ZONE_TXT_LIN = 4;
 const int TAILLE_ZONE_TXT_COL = 128;
+
+/* affecte leurs tailles aux constantes dépendant de la taille de l'écran */
+void setup_taille_ecran(int* scr_lin, int* scr_col, int* zone_txt_lin, int* zone_txt_col)
+{
+    /* récupère les dimensions de l'écran */
+    getmaxyx(stdscr, *scr_lin, *scr_col);
+    
+    assert(*scr_lin > 0);  // la taille de l'écran doit
+    assert(*scr_col > 0);  // être strictement positive
+    
+    /* coordonnées du coin supérieur gauche de la zone de texte : */
+    
+    // - TAILLE_ZONE_TXT_LIN : décalage du texte ; + 2 : pour les bordures
+    *zone_txt_lin = (*scr_lin + MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN + 2;
+    *zone_txt_col = (*scr_col - TAILLE_ZONE_TXT_COL) / 2;
+
+    return;
+}
 
 
 /* affecte les paires de couleur à leur indice */
@@ -103,24 +130,20 @@ void affiche_char_val(int val, int lin, int col)
 }
 
 
-/* affiche la map au centre de l'écran, moins un décalage pour la zone de texte 
- * dimensions écran : (scr_lin x scr_col) */
-void affiche_map(int map[MAP_LIN][MAP_COL], int scr_lin, int scr_col)
+/* affiche la map au centre de l'écran, moins un décalage pour la zone de texte */
+void affiche_map(int map[MAP_LIN][MAP_COL])
 {
-    assert(scr_lin > 0);  // la taille de l'écran est strictement positive
-    assert(scr_col > 0);
-
     // coordonnées du coin supérieur gauche de la map dans l'écran
     int start_lin, start_col;
     // centre du décalage entre la map et l'écran :
-    start_lin = (scr_lin - MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;  // - TAILLE_ZONE_TXT_LIN : décalage
-    start_col = (scr_col - MAP_COL) / 2;
+    start_lin = (SCR_LIN - MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;  // - TAILLE_ZONE_TXT_LIN : décalage
+    start_col = (SCR_COL - MAP_COL) / 2;
     
     // l'affichage doit bien se faire dans l'écran
     assert(start_lin >= 0);
-    assert(start_lin + MAP_LIN <= scr_lin);
-    assert(scr_col >= 0);
-    assert(start_col + MAP_COL <= scr_col);
+    assert(start_lin + MAP_LIN <= SCR_LIN);
+    assert(start_col >= 0);
+    assert(start_col + MAP_COL <= SCR_COL);
 
 
     int current_lin = start_lin;  // sera itéré pour placer le caractère
@@ -146,23 +169,19 @@ void affiche_map(int map[MAP_LIN][MAP_COL], int scr_lin, int scr_col)
 }
 
 
-/* affiche une bordure autour de la map et une autour de la zone de texte,
- * dans un écran de dimensions scr_lin lignes par scr_col colonnes */
-void affiche_bordures(int scr_lin, int scr_col)
+/* affiche une bordure autour de la map et une autour de la zone de texte */
+void affiche_bordures()
 {
-    assert(scr_lin > 0);  // la taille de l'écran est strictement positive
-    assert(scr_col > 0);
-
 	/* calcul du placement de la bordure sur l'écran : */
 
     int map_start_lin, txt_start_lin, map_start_col, txt_start_col;
     // coordonnées du coin supérieur gauche de la map :
-    map_start_lin = (scr_lin - MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;
-    map_start_col = (scr_col - MAP_COL) / 2;
+    map_start_lin = (SCR_LIN - MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;
+    map_start_col = (SCR_COL - MAP_COL) / 2;
 
     // coordonnées du coin sup. gauche de la zone de texte :
-    txt_start_lin = (scr_lin + MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;
-    txt_start_col = (scr_col - TAILLE_ZONE_TXT_COL) / 2;
+    txt_start_lin = (SCR_LIN + MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN;
+    txt_start_col = (SCR_COL - TAILLE_ZONE_TXT_COL) / 2;
 
 
     int taille_bord_lin, taille_bord_col;  // dimensions de la bordure
@@ -180,8 +199,8 @@ void affiche_bordures(int scr_lin, int scr_col)
         }
         else  // bordure de la zone de texte
         {
-            start_lin = txt_start_lin + 2;  // + 2 car il y a les deux lignes
-            start_col = txt_start_col;
+            start_lin = txt_start_lin + 2;  // + 2 car il y a les deux lignes de bordure
+            start_col = txt_start_col;      // entre la map et la zone de texte
             taille_bord_lin = TAILLE_ZONE_TXT_LIN;
             taille_bord_col = TAILLE_ZONE_TXT_COL;
         }
@@ -218,24 +237,23 @@ void affiche_bordures(int scr_lin, int scr_col)
 /* affiche une string dans la zone de texte, aux coordonnées indiquées. */
 void affiche_texte(int ligne, int colonne, char* string)
 {
-    int scr_lin, scr_col;
-    getmaxyx(stdscr, scr_lin, scr_col);
-
-    assert(scr_lin > 0);  // la taille de l'écran doit
-    assert(scr_col > 0);  // être strictement positive
-
     assert(ligne >= 0);                     // la ligne et la
     assert(colonne >= 0);                   // colonne doivent
     assert(ligne < TAILLE_ZONE_TXT_LIN);    // se trouver dans
     assert(colonne < TAILLE_ZONE_TXT_COL);  // la zone de texte
 
-    /* coordonnées du début (haut, gauche) de la zone de texte : */
+    mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL + colonne, string);
+    refresh();
+    return;
+}
 
-    // - TAILLE_ZONE_TXT_LIN : décalage du texte ; + 2 : pour les bordures
-    int zone_txt_lin = (scr_lin + MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN + 2 + ligne;  
-    int zone_txt_col = (scr_col - TAILLE_ZONE_TXT_COL) / 2 + colonne;
 
-    mvprintw(zone_txt_lin, zone_txt_col, string);
+/* affiche les PV du joueur et ceux de l'ennemi sur la ligne 0 de la
+ * zone de texte. à utiliser en combat */
+void affiche_pv_combat(struct joueur j, struct ennemi e)
+{
+    mvprintw(ZONE_TXT_LIN, ZONE_TXT_COL, "PV : Vous : %d | Ennemi : %d", j.pv, e.pv);
+    refresh();
     return;
 }
 
@@ -243,23 +261,22 @@ void affiche_texte(int ligne, int colonne, char* string)
 /* efface la ligne indiquée dans la zone de texte */
 void efface_ligne_texte(int ligne)
 {
-    int scr_lin, scr_col;
-    getmaxyx(stdscr, scr_lin, scr_col);
-
-    assert(scr_lin > 0);                  // la taille de l'écran doit
-    assert(scr_col > 0);                  // être strictement positive
-    assert(ligne >= 0);                   // et la ligne se trouve dans
+    assert(ligne >= 0);                   // la ligne se trouve dans
     assert(ligne < TAILLE_ZONE_TXT_LIN);  // la zone de texte
 
-    /* coordonnées du début (haut, gauche) de la zone de texte : */
-
-    // - TAILLE_ZONE_TXT_LIN : décalage du texte ; + 2 : pour les bordures
-    int zone_txt_lin = (scr_lin + MAP_LIN) / 2 - TAILLE_ZONE_TXT_LIN + 2 + ligne;  
-    int zone_txt_col = (scr_col - TAILLE_ZONE_TXT_COL) / 2;
-
-    for (int col = 0; col < TAILLE_ZONE_TXT_COL; col++)
+    for (int col = 0; col < TAILLE_ZONE_TXT_COL - 6; col++)
     {
-        mvaddch(zone_txt_lin, zone_txt_col + col, ' ');
+        mvaddch(ZONE_TXT_LIN + ligne, ZONE_TXT_COL + col, ' ');
     }
+    refresh();
+    return;
+}
+
+
+/* efface toute la zone de texte */
+void efface_zone_texte()
+{
+    for (int ligne = 0; ligne < TAILLE_ZONE_TXT_LIN; ligne++)
+        efface_ligne_texte(ligne);
     return;
 }
