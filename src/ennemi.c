@@ -74,8 +74,7 @@ bool combat (struct joueur* j, struct ennemi* e)
 	
 	while ((entree != 'o') || (entree != 'n'))
 	{
-		// DEBUG : 
-		mvaddch(ZONE_TXT_LIN + 4, ZONE_TXT)
+		
 		if (entree == 'n')  // pas de combat
 		{
 			efface_ligne_texte(1);
