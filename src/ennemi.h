@@ -13,7 +13,7 @@ struct ennemi{
 
 /* effectue un tour de combat entre un joueur et un ennemi.
  * (choix : attaque ou défense) */
-void tour_de_combat(struct joueur* j, struct ennemi* e)
+void tour_de_combat(struct joueur* j, struct ennemi* e);
 
 /*Fonction de combat contre un ennemi présent sur la map
  * Renvoie true si le combat est gagné par le joueur */
