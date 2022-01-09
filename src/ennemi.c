@@ -19,7 +19,7 @@ void tour_de_combat(struct joueur* j, struct ennemi* e)
 	char entree;
 	int action_ennemi;
 
-	affiche_pv_combat(*j, *e);
+	affiche_pv_combat(&j, &e);
 	affiche_texte(1, 0, "Que voulez-vous faire : attaquer[a] ou defendre[d] ? ");
 	scanw("%s",&entree);
 	
