@@ -1,14 +1,14 @@
 #include <stdbool.h>
-#include "ennemi.h"
 #include <ncurses.h>
 #include "move.h"
 #include "map.h"
+#include "ennemi.h"
 
 /////////////   Déplacements gérés dans ce fichier   //////////////
 
 
-/* renvoie true si la case au-dessus du joueur n'est pas vide */
-bool elt_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL])
+/* renvoie true si l'element recherché est dans la case au-dessus du joueur */
+bool test_elt_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL], int element) 
 {
 	// le joueur doit se trouver dans la map
 	assert_joueur_dans_map(j, map);
@@ -18,43 +18,16 @@ bool elt_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL])
 		return true;
 
 	// case au-dessus du joueur
-	else if (map[j.pos_lin - 1][j.pos_col] != VIDE)
+	else if (map[j.pos_lin - 1][j.pos_col] == element)
 		return true;
 
 	else
 		return false;
 }
 
-//Renvoie true si la case au dessus du joueur est un ennemi
-bool ennemi_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL]) 
-{
-	assert_joueur_dans_map(j,map);
-	
-	if (j.pos_lin == 0)
-		return false;
-		
-	else if (map[j.pos_lin - 1][j.pos_col] == ENNEMI)
-		return true;
-		
-	else 
-		return false;
-}
 
-//renvoie true si la case de fin est au dessus du joueur
-bool end_en_haut(struct joueur j, int map[MAP_LIN][MAP_COL])
-{
-	assert_joueur_dans_map(j,map);
-	
-	if (map[j.pos_lin - 1][j.pos_col] == END)
-		return true;
-		
-	else
-		return false;
-}
-
-
-/* renvoie true si la case au-dessous du joueur n'est pas vide */
-bool elt_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL])
+/* renvoie true si l'element recherché est dans la case au-dessous du joueur */
+bool test_elt_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL], int element)
 {
 	// le joueur doit se trouver dans la map
 	assert_joueur_dans_map(j, map);
@@ -64,43 +37,16 @@ bool elt_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL])
 		return true;
 
 	// case au-dessous du joueur
-	else if (map[j.pos_lin + 1][j.pos_col] != VIDE)
+	else if (map[j.pos_lin + 1][j.pos_col] == element)
 		return true;
 
 	else
 		return false;
 }
 
-//Renvoie true si la case au dessus du joueur est un ennemi
-bool ennemi_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL]) 
-{
-	assert_joueur_dans_map(j,map);
-	
-	if (j.pos_lin == MAP_LIN - 1)
-		return false;
-		
-	else if (map[j.pos_lin + 1][j.pos_col] == ENNEMI)
-		return true;
-		
-	else
-		return false;
-}
 
-//renvoie true si la case de fin est en dessous du joueur
-bool end_en_bas(struct joueur j, int map[MAP_LIN][MAP_COL])
-{
-	assert_joueur_dans_map(j,map);
-	
-	if (map[j.pos_lin + 1][j.pos_col] == END)
-		return true;
-	
-	else
-		return false;
-}
-
-
-/* renvoie true si la case à gauche du joueur n'est pas vide */
-bool elt_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL])
+/* renvoie true si l'élément recherché est dans la case à gauche du joueur */
+bool test_elt_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL], int element)
 {
 	// le joueur doit se trouver dans la map
 	assert_joueur_dans_map(j, map);
@@ -110,42 +56,15 @@ bool elt_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL])
 		return true;
 
 	// case à gauche du joueur
-	else if (map[j.pos_lin][j.pos_col - 1] != VIDE)
+	else if (map[j.pos_lin][j.pos_col - 1] == element)
 		return true;
 	else
 		return false;
 }
 
-//Renvoie true si la case à gauche du joueur est un ennemi
-bool ennemi_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL])
-{
-	assert_joueur_dans_map(j,map);
-	
-	if (j.pos_col == 0)
-		return false;
-		
-	else if (map[j.pos_lin][j.pos_col - 1] == ENNEMI)
-		return true;
-		
-	else 
-		return false;
-}
 
-//Renvoie true si la case de fin est a droite du joueur
-bool end_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL])
-{
-	assert_joueur_dans_map(j,map);
-	
-	if (map[j.pos_lin][j.pos_col - 1] == END)
-		return true;
-	
-	else
-		return false;
-}
-
-
-/* renvoie true si la case à droite du joueur n'est pas vide */
-bool elt_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL])
+/* renvoie true si l'élément recherché est dans la case à droite du joueur */
+bool test_elt_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL], int element)
 {
 	// le joueur doit se trouver dans la map
 	assert_joueur_dans_map(j, map);
@@ -155,45 +74,16 @@ bool elt_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL])
 		return true;
 
 	// case à droite du joueur
-	else if (map[j.pos_lin][j.pos_col + 1] != VIDE)
+	else if (map[j.pos_lin][j.pos_col + 1] == element)
 		return true;
 
 	else
 		return false;
 }
 
-//renvoie true si la case à droite du joueur est un ennemi
-bool ennemi_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL]) 
-{
-	assert_joueur_dans_map(j,map);
-	
-	if (j.pos_col == MAP_COL - 1)
-		return false;
-		
-	else if (map[j.pos_lin][j.pos_col + 1] == ENNEMI) 
-		return true;
-		
-	else 
-		return false;
-}
 
-//renvoie true si la case de fin est a gauche du joueur
-bool end_a_droite(struct joueur j, int map[MAP_LIN][MAP_COL])
-{
-	assert_joueur_dans_map(j,map);
-	
-	if (map[j.pos_lin][j.pos_col + 1] == END)
-	{
-		return true;
-	}
-	else 
-	{
-		return false;
-	}
-}
-
-// Modifie la position du joueur en fonction de l'entrée au clavier
-// (on suppose que le déplacement est valide)
+/* Modifie la position du joueur en fonction de l'entrée au clavier (on suppose que
+ * le déplacement est valide) ; le cas échéant, lance un combat ou la fin du jeu */
 void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar, struct ennemi* e_ptr)
 {
 	// le joueur doit être dans la map
@@ -205,18 +95,18 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 	{
 		j_ptr->dir = HAUT;  // tourne le joueur vers le haut
 
-		if (!elt_en_haut(*j_ptr, map))  // si la voie est libre
+		if (test_elt_en_haut(*j_ptr, map, VIDE))  // si la voie est libre
 		{
 			j_ptr->pos_lin -= 1;  // vrai déplacement
 		} 
-		else if (ennemi_en_haut(*j_ptr,map)) 
+		else if (test_elt_en_haut(*j_ptr, map, ENNEMI)) 
 		{
 			if (combat(j_ptr,e_ptr)) 
 			{
-				map[j_ptr->pos_lin - 1][j_ptr->pos_col] = VIDE;  //remplace la case ou était l'ennemi par du vide
+				map[j_ptr->pos_lin - 1][j_ptr->pos_col] = VIDE;  // remplace la case ou était l'ennemi par du vide
 			}
 		}
-		else if (end_en_haut(*j_ptr,map))
+		else if (test_elt_en_haut(*j_ptr, map, END))
 		{
 			printw("Bravo, vous avez atteint la fin !");
 		}
@@ -226,18 +116,18 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 	{
 		j_ptr->dir = BAS;
 
-		if ( !elt_en_bas(*j_ptr, map))
+		if (test_elt_en_bas(*j_ptr, map, VIDE))
 		{
 			j_ptr->pos_lin += 1;
 		}
-		else if (ennemi_en_bas(*j_ptr,map))
+		else if (test_elt_en_bas(*j_ptr, map, ENNEMI))
 		{
 			if (combat(j_ptr,e_ptr))
 			{
 				map[j_ptr->pos_lin + 1][j_ptr->pos_col] = VIDE;
 			}
 		}
-		else if (end_en_bas(*j_ptr,map))
+		else if (test_elt_en_bas(*j_ptr, map, END))
 		{
 			printw("Bravo, vous avez atteint la fin !");
 		}
@@ -247,18 +137,18 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 	{
 		j_ptr->dir = GAUCHE;
 
-		if ( !elt_a_gauche(*j_ptr, map))
+		if (test_elt_a_gauche(*j_ptr, map, VIDE))
 		{
 			j_ptr->pos_col -= 1;
 		}
-		else if (ennemi_a_gauche(*j_ptr,map))
+		else if (test_elt_a_gauche(*j_ptr, map, ENNEMI))
 		{
 			if (combat(j_ptr,e_ptr))
 			{
 				map[j_ptr->pos_lin][j_ptr->pos_col - 1] = VIDE;
 			}
 		}
-		else if (end_a_gauche(*j_ptr,map)) 
+		else if (test_elt_a_gauche(*j_ptr, map, END)) 
 		{
 			printw("Bravo, vous avez atteint la fin !");
 		}
@@ -268,18 +158,18 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 	{
 		j_ptr->dir = DROITE;
 
-		if ( !elt_a_droite(*j_ptr, map))
+		if (test_elt_a_droite(*j_ptr, map, VIDE))
 		{	
 			j_ptr->pos_col += 1;
 		}
-		else if (ennemi_a_droite(*j_ptr,map))
+		else if (test_elt_a_droite(*j_ptr, map, ENNEMI))
 		{
 			if (combat(j_ptr,e_ptr)) 
 			{
 				map[j_ptr->pos_lin][j_ptr->pos_col + 1] = VIDE;
 			}
 		}
-		else if (end_a_droite(*j_ptr,map))
+		else if (test_elt_a_droite(*j_ptr, map, END))
 		{
 			printw("Bravo, vous avez atteint la fin !");
 		}
