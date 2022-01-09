@@ -115,6 +115,8 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		{
 			efface_zone_texte();
 			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
+			affiche_texte(2, 0, "Merci d'avoir joue a notre jeu :)");
+			affiche_texte(3, 0, "Appuyez sur [q] pour quitter ou vous pouvez continuer en battant tous les ennemis");
 		}
 	}
 
@@ -139,6 +141,8 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		{
 			efface_zone_texte();
 			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
+			affiche_texte(2, 0, "Merci d'avoir joue a notre jeu :)");
+			affiche_texte(3, 0, "Appuyez sur [q] pour quitter ou vous pouvez continuer en battant tous les ennemis");
 		}
 	}
 
@@ -163,6 +167,8 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		{
 			efface_zone_texte();
 			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
+			affiche_texte(2, 0, "Merci d'avoir joue a notre jeu :)");
+			affiche_texte(3, 0, "Appuyez sur [q] pour quitter ou vous pouvez continuer en battant tous les ennemis");
 		}
 	}
 
@@ -187,6 +193,8 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		{
 			efface_zone_texte();
 			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
+			affiche_texte(2, 0, "Merci d'avoir joue a notre jeu :)");
+			affiche_texte(3, 0, "Appuyez sur [q] pour quitter ou vous pouvez continuer en battant tous les ennemis");
 		}
 	}
 

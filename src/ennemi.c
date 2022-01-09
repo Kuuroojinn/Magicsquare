@@ -80,11 +80,11 @@ bool combat(struct joueur* j, struct ennemi* e)
 	affiche_texte(1, 0, "Etes-vous sûr de vouloir l'affronter ? Oui [o] ou Non [n] : ");
 	scanw("%s", &entree); 
 	
-	while ((entree != 'o') || (entree != 'n'))
+	//while ((entree != 'o') || (entree != 'n'))
 	{
 		// DEBUG : 
-		mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
-		if (entree == 'n')  // pas de combat
+		//mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
+		if (entree != 'o')  // pas de combat
 		{
 			efface_ligne_texte(1);
 			affiche_texte(1, 0, "Vous vous enfuyez. L'ennemi ne bronche pas.");
@@ -98,21 +98,24 @@ bool combat(struct joueur* j, struct ennemi* e)
 				efface_ligne_texte(1);
 				tour_de_combat(j, e);  // ils s'affrontent
 				// DEBUG :
-				mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
+				//mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
 			}
 		} 
-		else  // entrée invalide
+		/*else  // entrée invalide --> retirée 
 		{
+			efface_ligne_texte(0);
 			efface_ligne_texte(1);
 			affiche_texte(1, 0, "Alors ? Etes-vous sûr de vouloir l'affronter ? Oui [o] ou Non [n] : ");
 			scanw("%s",&entree);
-		}
+		}*/
 	}
-
+	
+	efface_ligne_texte(0);
 	affiche_texte(0, 0, "Combat fini");
 
 	if (j->pv <= 0) // défaite
 	{
+		efface_ligne_texte(3);
 		affiche_texte(2, 0, "Vous avez perdu...");
 		j->pv = pv_max;				 // En cas de défaite on rend les pv du joueur (peut être changé pour plus de difficulté
 		e->pv = pv_ennemi;			 // En cas de défaite, on remets les pv de l'ennemi a son max (sinon trop facile)
