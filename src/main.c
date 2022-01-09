@@ -26,7 +26,6 @@ int main()
 
 	/////////////////////  DEBUT DU JEU  ///////////////////////////
 
-	// démonstration seulement
 	struct joueur j1 = {
 		4,       // pos_lin
 		9,       // pos_col
@@ -51,14 +50,14 @@ int main()
 
 	affiche_bordures(SCR_LIN, SCR_COL);
 
+	affiche_texte(0, (TAILLE_ZONE_TXT_COL - 28) / 2, "Bienvenue dans Magicsquare !");
+	affiche_texte(1, 0, "Le but du jeu est d'atteindre la sortie, située dans la salle en bas à droite.");
+	
 
 
-	// gameloop temporaire
-
-	// inputchar doit être un int pour être comparé aux touches directionnelles
-	int inputchar = -1;
 
 
+	int inputchar = -1;  // doit être un int pour être comparé aux touches directionnelles
 	while (inputchar != 'q')
 	{
 		pivote_joueur_vers_map(j1, map1);
