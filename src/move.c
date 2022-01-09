@@ -58,6 +58,7 @@ bool test_elt_a_gauche(struct joueur j, int map[MAP_LIN][MAP_COL], int element)
 	// case à gauche du joueur
 	else if (map[j.pos_lin][j.pos_col - 1] == element)
 		return true;
+
 	else
 		return false;
 }
@@ -101,9 +102,9 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		} 
 		else if (test_elt_en_haut(*j_ptr, map, ENNEMI)) 
 		{
-			if (combat(j_ptr,e_ptr)) 
+			if (combat(j_ptr,e_ptr))  // lance un combat ; s'il est gagné :
 			{
-				map[j_ptr->pos_lin - 1][j_ptr->pos_col] = VIDE;  // remplace la case ou était l'ennemi par du vide
+				map[j_ptr->pos_lin - 1][j_ptr->pos_col] = VIDE;  // remplace la case où était l'ennemi par du vide
 			}
 		}
 		else if (test_elt_en_haut(*j_ptr, map, END))

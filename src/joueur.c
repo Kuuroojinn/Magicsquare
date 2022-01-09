@@ -10,5 +10,3 @@ const int HAUT = 1;
 const int BAS = 2;
 const int GAUCHE = 3;
 const int DROITE = 4;
-
-const int MAX_PV = 5;

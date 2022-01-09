@@ -18,15 +18,10 @@ int main()
 	start_color();
 	setup_couleur();
 
-	/* récupération de la taille de l'écran : */
-	int SCR_LIN;                         // taille de l'écran : lignes
-	int SCR_COL;                         // et colonnes ;
-	getmaxyx(stdscr, SCR_LIN, SCR_COL);  // récupère la taille
-
+	setup_taille_ecran(&SCR_LIN, &SCR_COL, &ZONE_TXT_LIN, &ZONE_TXT_COL);
 
 	/////////////////////  DEBUT DU JEU  ///////////////////////////
 
-	// démonstration seulement
 	struct joueur j1 = {
 		4,       // pos_lin
 		9,       // pos_col
@@ -51,32 +46,29 @@ int main()
     ajoute_couloirs_v(map1, true);
 	
 
-	affiche_bordures(SCR_LIN, SCR_COL);
+	affiche_bordures();
 
-	affiche_texte(SCR_LIN, SCR_COL, 0, "Bienvenue, aventurier !");
-	affiche_texte(SCR_LIN, SCR_COL, 1, "Ligne 1");
-	affiche_texte(SCR_LIN, SCR_COL, 2, "Ligne 2!");
-	affiche_texte(SCR_LIN, SCR_COL, 3, "Ligne 3!");
-
-	// gameloop temporaire
-
-	// inputchar doit être un int pour être comparé aux touches directionnelles
-	int inputchar = -1;
+	affiche_texte(0, (TAILLE_ZONE_TXT_COL - 28) / 2, "Bienvenue dans Magicsquare !");
+	affiche_texte(1, 0, "Le but du jeu est d'atteindre la sortie, située dans la salle en bas à droite.");
+	
 
 
+
+
+	int inputchar = -1;  // doit être un int pour être comparé aux touches directionnelles
 	while (inputchar != 'q')
 	{
 		pivote_joueur_vers_map(j1, map1);
 
-		affiche_map(map1, SCR_LIN, SCR_COL);
+		affiche_map(map1);
 		inputchar = getch();
 
 		if (inputchar == KEY_UP   || inputchar == KEY_DOWN ||
 			inputchar == KEY_LEFT || inputchar == KEY_RIGHT )
 		{
-			echo();     	//Affiche la saisie du joueur pendant les combats
+			echo();     	// Affiche la saisie du joueur pendant les combats
 			deplacement(&j1, map1, inputchar,&e1);
-			noecho();	//Arrete d'afficher la saisie un fois le combat terminé
+			// noecho();	//Arrete d'afficher la saisie un fois le combat terminé
 		}
 	}
 
