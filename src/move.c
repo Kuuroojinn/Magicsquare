@@ -109,7 +109,9 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_en_haut(*j_ptr, map, END))
 		{
-			printw("Bravo, vous avez atteint la fin !");
+			efface_ligne_texte(0);
+			efface_ligne_texte(1);
+			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
 		}
 	}
 
@@ -130,7 +132,9 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_en_bas(*j_ptr, map, END))
 		{
-			printw("Bravo, vous avez atteint la fin !");
+			efface_ligne_texte(0);
+			efface_ligne_texte(1);
+			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
 		}
 	}
 
@@ -151,7 +155,9 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_a_gauche(*j_ptr, map, END)) 
 		{
-			printw("Bravo, vous avez atteint la fin !");
+			efface_ligne_texte(0);
+			efface_ligne_texte(1);
+			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
 		}
 	}
 
@@ -172,7 +178,9 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_a_droite(*j_ptr, map, END))
 		{
-			printw("Bravo, vous avez atteint la fin !");
+			efface_ligne_texte(0);
+			efface_ligne_texte(1);
+			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
 		}
 	}
 
