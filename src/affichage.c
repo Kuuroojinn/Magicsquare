@@ -259,9 +259,9 @@ void affiche_texte(int ligne, int colonne, char* string)
 
 /* affiche les PV du joueur et ceux de l'ennemi sur la ligne 0 de la
  * zone de texte. à utiliser en combat */
-void affiche_pv_combat(struct joueur j, struct ennemi e)
+void affiche_pv_combat(struct joueur* j, struct ennemi* e)
 {
-    mvprintw(ZONE_TXT_LIN, ZONE_TXT_COL, "PV : Vous : %d | Ennemi : %d", j.pv, e.pv);
+    mvprintw(ZONE_TXT_LIN, ZONE_TXT_COL, "PV : Vous : %d | Ennemi : %d", j->pv, e->pv);
     refresh();
     return;
 }
@@ -273,7 +273,7 @@ void efface_ligne_texte(int ligne)
     assert(ligne >= 0);                   // la ligne se trouve dans
     assert(ligne < TAILLE_ZONE_TXT_LIN);  // la zone de texte
 
-    for (int col = 0; col < TAILLE_ZONE_TXT_COL - 6; col++)
+    for (int col = 0; col < TAILLE_ZONE_TXT_COL; col++)
     {
         mvaddch(ZONE_TXT_LIN + ligne, ZONE_TXT_COL + col, ' ');
     }

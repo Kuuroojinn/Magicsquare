@@ -3,6 +3,7 @@
 #include "move.h"
 #include "map.h"
 #include "ennemi.h"
+#include "affichage.h"
 
 /////////////   Déplacements gérés dans ce fichier   //////////////
 
@@ -90,6 +91,7 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 	// le joueur doit être dans la map
 	assert_joueur_dans_map(*j_ptr, map);
 
+	efface_zone_texte();  // pour pouvoir afficher les dialogues si besoin
 	map[j_ptr->pos_lin][j_ptr->pos_col] = VIDE;  // efface le joueur de sa position
 
 	if (inputchar == KEY_UP)  // flèche du haut pressée

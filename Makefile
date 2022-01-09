@@ -18,7 +18,7 @@ salles.o: src/salles.c src/salles.h src/map.h
 joueur.o: src/joueur.c src/joueur.h
 	gcc -c src/joueur.c
 
-move.o: src/move.c src/map.h src/ennemi.h
+move.o: src/move.c src/map.h src/ennemi.h src/affichage.h
 	gcc -c src/move.c -lncurses
 
 affichage.o: src/affichage.c src/affichage.h src/joueur.h src/ennemi.h src/map.h

@@ -19,7 +19,7 @@ void tour_de_combat(struct joueur* j, struct ennemi* e)
 	char entree;
 	int action_ennemi;
 
-	affiche_pv_combat(&j, &e);
+	affiche_pv_combat(j, e);
 	affiche_texte(1, 0, "Que voulez-vous faire : attaquer[a] ou defendre[d] ? ");
 	scanw("%s",&entree);
 	
@@ -70,11 +70,12 @@ bool combat (struct joueur* j, struct ennemi* e)
 	efface_ligne_texte(1);
 	affiche_texte(0, 0, "Un ennemi garde le couloir !");
 	affiche_texte(1, 0, "Etes-vous sûr de vouloir l'affronter ? Oui[o] ou Non [n]");
-	scanw("%s",&entree); 
+	scanw("%s", &entree); 
 	
 	while ((entree != 'o') || (entree != 'n'))
 	{
-		
+		// DEBUG : 
+		mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
 		if (entree == 'n')  // pas de combat
 		{
 			efface_ligne_texte(1);
@@ -87,12 +88,13 @@ bool combat (struct joueur* j, struct ennemi* e)
 			{
 				efface_ligne_texte(0);
 				efface_ligne_texte(1);
-				tour_de_combat(&j,  &e);  // ils s'affrontent
+				tour_de_combat(j, e);  // ils s'affrontent
 			}
 		} 
 		else  // entrée invalide
 		{
 			affiche_texte(1, 0, "Alors ? Etes-vous sûr de vouloir l'affronter ? Oui[o] ou Non [n]");
+			scanw("%s",&entree);
 		}
 	}
 
