@@ -99,7 +99,7 @@ bool combat(struct joueur* j, struct ennemi* e)
 				efface_ligne_texte(0);
 				efface_ligne_texte(1);
 				tour_de_combat(j, e);  // ils s'affrontent
-				efface_zone_texte();
+				
 				// DEBUG :
 				//mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
 			}
