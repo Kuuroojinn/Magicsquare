@@ -252,7 +252,6 @@ void affiche_texte(int ligne, int colonne, char* string)
     assert(colonne < TAILLE_ZONE_TXT_COL);  // la zone de texte
 
     mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL + colonne, string);
-    refresh();
     return;
 }
 
@@ -277,7 +276,6 @@ void efface_ligne_texte(int ligne)
     {
         mvaddch(ZONE_TXT_LIN + ligne, ZONE_TXT_COL + col, ' ');
     }
-    refresh();
     return;
 }
 

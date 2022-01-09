@@ -43,7 +43,7 @@ int main()
 	map1[MAP_LIN-9][MAP_COL-14] = END;  // A modfier, place juste de caractère END dans la salle du bas, c'est juste pour faire mes tests
 
     ajoute_couloirs_h(map1, true);  // true : les ennemis sont présents
-    ajoute_couloirs_v(map1, true);
+    ajoute_couloirs_v(map1, false);
 	
 
 	affiche_bordures();

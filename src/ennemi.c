@@ -31,6 +31,7 @@ void tour_de_combat(struct joueur* j, struct ennemi* e)
 		if (action_ennemi == 0)  // L'ennemi attaque
 		{
 			efface_ligne_texte(2);
+			efface_ligne_texte(3);
 			affiche_texte(2, 0, "L'adversaire attaque aussi !");
 			e->pv = e->pv - j->atk;
 			j->pv = j->pv - e->atk;
@@ -38,7 +39,8 @@ void tour_de_combat(struct joueur* j, struct ennemi* e)
 		else  // L'ennemi se défend
 		{
 			efface_ligne_texte(2);
-			affiche_texte(2, 0, "L'adversaire se défend.");
+			efface_ligne_texte(3);
+			affiche_texte(2, 0, "Vous attaquez, mais l'adversaire se défend.");
 			e->pv = e->pv - (j->atk / 2);
 		}
 	} 
@@ -81,7 +83,7 @@ bool combat(struct joueur* j, struct ennemi* e)
 	scanw("%s", &entree); 
 	
 	//while ((entree != 'o') || (entree != 'n'))
-	{
+	//{
 		// DEBUG : 
 		//mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
 		if (entree != 'o')  // pas de combat
@@ -97,6 +99,7 @@ bool combat(struct joueur* j, struct ennemi* e)
 				efface_ligne_texte(0);
 				efface_ligne_texte(1);
 				tour_de_combat(j, e);  // ils s'affrontent
+				efface_zone_texte();
 				// DEBUG :
 				//mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
 			}
@@ -108,13 +111,14 @@ bool combat(struct joueur* j, struct ennemi* e)
 			affiche_texte(1, 0, "Alors ? Etes-vous sûr de vouloir l'affronter ? Oui [o] ou Non [n] : ");
 			scanw("%s",&entree);
 		}*/
-	}
+	//}
 	
-	efface_ligne_texte(0);
-	affiche_texte(0, 0, "Combat fini");
+    affiche_texte(0, 0, "Le combat est terminé, et...");
 
 	if (j->pv <= 0) // défaite
 	{
+		efface_ligne_texte(1);
+		efface_ligne_texte(2);
 		efface_ligne_texte(3);
 		affiche_texte(2, 0, "Vous avez perdu...");
 		j->pv = pv_max;				 // En cas de défaite on rend les pv du joueur (peut être changé pour plus de difficulté
@@ -126,11 +130,14 @@ bool combat(struct joueur* j, struct ennemi* e)
 
 	else if (e->pv <= 0)  // victoire
 	{
+		efface_ligne_texte(1);
+		efface_ligne_texte(2);
+		efface_ligne_texte(3);
 		affiche_texte(2, 0, "Vous avez gagné. Votre attaque augmente !");
 		j->atk += 1;					 
 		
 		affiche_texte(3, 0, "Vous regagnez tous vos PV, et vos PV max. augmentent !");
-		j->pv = pv_max;       	         // Remet les pv du joueur au niveau d'avant le combat
+		j->pv  = pv_max;       	         // Remet les pv du joueur au niveau d'avant le combat
 		j->pv += 5;                 	 // redonne 5 pv a la fin d'un combat
 		e->pv  = pv_ennemi + 5; 		 // la vie des ennemis augmente au fur et a mesure pour rajouter un peu de difficulté
 		e->atk = e->atk + rand()&1;      // Augmente de 1 ou de 0 l'attaque de l'adversaire pour corser le jeu
