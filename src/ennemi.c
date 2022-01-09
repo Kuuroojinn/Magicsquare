@@ -87,7 +87,7 @@ bool combat (struct joueur* j, struct ennemi* e)
 			{
 				efface_ligne_texte(0);
 				efface_ligne_texte(1);
-				tour_de_combat(j,  e);  // ils s'affrontent
+				tour_de_combat(&j,  &e);  // ils s'affrontent
 			}
 		} 
 		else  // entrée invalide
