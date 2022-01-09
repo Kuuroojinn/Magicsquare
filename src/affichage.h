@@ -38,7 +38,7 @@ void affiche_texte(int ligne, int colonne, char* string);
 
 /* affiche les PV du joueur et ceux de l'ennemi sur la ligne 0 de la
  * zone de texte. à utiliser en combat */
-void affiche_pv_combat(struct joueur j, struct ennemi e);
+void affiche_pv_combat(struct joueur* j, struct ennemi* e);
 
 /* efface la ligne indiquée dans la zone de texte */
 void efface_ligne_texte(int ligne);
