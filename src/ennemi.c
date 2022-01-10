@@ -28,40 +28,42 @@ void tour_de_combat(struct joueur* j, struct ennemi* e)
 		// Génère un nombre aléatoire : 0 (attaque) ou 1 (défense)
 		action_ennemi = rand()&1;
 		
-		if (action_ennemi == 0)  // L'ennemi attaque
+		if (action_ennemi == 0)  // l'ennemi attaque
 		{
 			efface_ligne_texte(2);
 			efface_ligne_texte(3);
 			affiche_texte(2, 0, "L'adversaire attaque aussi !");
-			e->pv = e->pv - j->atk;
-			j->pv = j->pv - e->atk;
+			e->pv -= j->atk;
+			j->pv -= e->atk;
+			affiche_degats_subis(3, 'b', e->atk, j->atk);
 		} 
-		else  // L'ennemi se défend
+		else  // l'ennemi se défend
 		{
 			efface_ligne_texte(2);
 			efface_ligne_texte(3);
 			affiche_texte(2, 0, "Vous attaquez, mais l'adversaire se défend.");
-			e->pv = e->pv - (j->atk / 2);
+			e->pv -= (j->atk / 2);
+			affiche_degats_subis(3, 'e', (j->atk / 2), 0);
 		}
 	} 
 	else if (entree == 'd')  // le joueur se défend
 	{
 		action_ennemi = rand()&1;
 		
-		if (action_ennemi == 0) 
+		if (action_ennemi == 0)  // l'ennemi attaque
 		{
 			efface_ligne_texte(2);
 			efface_ligne_texte(3);
-			affiche_texte(2, 0, "L'adversaire attaque.");
-			affiche_texte(3, 0, "Vous bloquez une partie des dégâts.");
-			j->pv = j->pv - (e->pv / 2);
+			affiche_texte(2, 0, "L'adversaire attaque. Vous bloquez une partie des dégâts.");
+			j->pv -= (e->atk / 2);
+			affiche_degats_subis(3, 'j', (e->atk / 2), 0);
 		} 
-		else 
+		else  // l'ennemi se défend
 		{
 			efface_ligne_texte(2);
 			efface_ligne_texte(3);
-			affiche_texte(2, 0, "L'adversaire se défend aussi !");
-			affiche_texte(3, 0, "Dommage...");
+			affiche_texte(2, 0, "L'adversaire se défend aussi ! Dommage...");
+			affiche_degats_subis(3, 'b', 0, 0);
 		}
 	}
 
@@ -123,6 +125,7 @@ bool combat(struct joueur* j, struct ennemi* e)
 		affiche_texte(2, 0, "Vous avez perdu...");
 		j->pv = pv_max;				 // En cas de défaite on rend les pv du joueur (peut être changé pour plus de difficulté
 		e->pv = pv_ennemi;			 // En cas de défaite, on remets les pv de l'ennemi a son max (sinon trop facile)
+
 		return false;				 // Indique que le combat n'est pas gagné
 	}
 
@@ -138,9 +141,9 @@ bool combat(struct joueur* j, struct ennemi* e)
 		
 		affiche_texte(3, 0, "Vous regagnez tous vos PV, et vos PV max. augmentent !");
 		j->pv  = pv_max;       	         // Remet les pv du joueur au niveau d'avant le combat
-		j->pv += 5;                 	 // redonne 5 pv a la fin d'un combat
+		j->pv += 5;                 	 // rajoute 5 pv a la fin d'un combat
 		e->pv  = pv_ennemi + 5; 		 // la vie des ennemis augmente au fur et a mesure pour rajouter un peu de difficulté
-		e->atk = e->atk + rand()&1;      // Augmente de 1 ou de 0 l'attaque de l'adversaire pour corser le jeu
+		e->atk = e->atk + 5; //rand()&1;      // Augmente de 1 ou de 0 l'attaque de l'adversaire pour corser le jeu
 		
 		return true;				     // Renvoie true si le combat est gagné pour pouvoir supprimer l'ennemi de la map
 	} 

@@ -36,9 +36,14 @@ void affiche_bordures();
 /* affiche une string dans la zone de texte, aux coordonnées indiquées. */
 void affiche_texte(int ligne, int colonne, char* string);
 
-/* affiche les PV du joueur et ceux de l'ennemi sur la ligne 0 de la
- * zone de texte. à utiliser en combat */
+/* affiche les PV du joueur et ceux de l'ennemi sur la ligne 0 de la zone de texte. */
 void affiche_pv_combat(struct joueur* j, struct ennemi* e);
+
+/* affiche une quantité de dégâts infligés sur une ligne de la zone de texte.
+ * type de texte : - j : joueur   (utiliser deg1)
+ *                 - e : ennemi   (idem)
+ *                 - b : les deux (utiliser deg1 et deg2)                     */
+void affiche_degats_subis(int ligne, char type, int deg1, int deg2);
 
 /* efface la ligne indiquée dans la zone de texte */
 void efface_ligne_texte(int ligne);

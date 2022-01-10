@@ -256,12 +256,51 @@ void affiche_texte(int ligne, int colonne, char* string)
 }
 
 
-/* affiche les PV du joueur et ceux de l'ennemi sur la ligne 0 de la
- * zone de texte. à utiliser en combat */
+/* affiche les PV du joueur et ceux de l'ennemi sur la ligne 0 de la zone de texte. */
 void affiche_pv_combat(struct joueur* j, struct ennemi* e)
 {
     mvprintw(ZONE_TXT_LIN, ZONE_TXT_COL, "PV : Vous : %d | Ennemi : %d", j->pv, e->pv);
-    refresh();
+    return;
+}
+
+
+/* affiche une quantité de dégâts infligés sur une ligne de la zone de texte.
+ * type de texte : - j : joueur   (utiliser deg1)
+ *                 - e : ennemi   (idem)
+ *                 - b : les deux (utiliser deg1 et deg2)                     */
+void affiche_degats_subis(int ligne, char type, int deg1, int deg2)
+{
+    assert(ligne >= 0);                   // la ligne doit se trouver
+    assert(ligne < TAILLE_ZONE_TXT_LIN);  // dans la zone de texte
+
+    assert(type == 'j' || type == 'e' || type == 'b');  // le type de dégât doit être un existant
+
+    if (type == 'j')  // le joueur a subi les dégâts
+    {   
+        if (deg1 == 0)
+            mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL, "Vous ne subissez aucun dégât !");
+        if (deg1 == 1)
+            mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL, "Vous subissez 1 point de dégâts !");
+        else  // degats plus grands
+            mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL, "Vous subissez %d points de dégâts !", deg1);
+    }
+    else if (type == 'e')  // l'ennemi a subi les dégâts
+    {
+        if (deg1 == 0)
+            mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL, "L'adversaire ne subit aucun dégât !");
+        if (deg1 == 1)
+            mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL, "L'adversaire subit 1 point de dégâts !");
+        else  // degats plus grands
+            mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL, "L'adversaire subit %d points de dégâts !", deg1);
+    }
+    else if (type == 'b')  // dégâts des deux côtés
+    {
+        if (deg1 == 0 && deg2 == 0)
+            mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL, "Ni vous ni l'adversaire ne subissez de dégât !");
+        else
+            mvprintw(ZONE_TXT_LIN + ligne, ZONE_TXT_COL,
+                "Vous et l'adveraire subissez respectivement %d et %d points de dégâts !", deg1, deg2);
+    }
     return;
 }
 
