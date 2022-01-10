@@ -1,7 +1,3 @@
-# à changer au fur et à mesure
-# que des modifs seront faites
-
-
 # le jeu final
 main: main.o map.o joueur.o salles.o move.o affichage.o ennemi.o
 	gcc main.o map.o salles.o joueur.o move.o affichage.o ennemi.o -o main -lncurses

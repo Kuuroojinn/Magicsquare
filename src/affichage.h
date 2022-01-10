@@ -45,6 +45,9 @@ void affiche_pv_combat(struct joueur* j, struct ennemi* e);
  *                 - b : les deux (utiliser deg1 et deg2)                     */
 void affiche_degats_subis(int ligne, char type, int deg1, int deg2);
 
+/* affiche le texte de fin du jeu */
+void affiche_texte_fin();
+
 /* efface la ligne indiquée dans la zone de texte */
 void efface_ligne_texte(int ligne);
 

@@ -305,6 +305,16 @@ void affiche_degats_subis(int ligne, char type, int deg1, int deg2)
 }
 
 
+/* affiche le texte de fin du jeu */
+void affiche_texte_fin()
+{
+    efface_zone_texte();
+    affiche_texte(0, 0, "Bravo, vous avez atteint la fin du jeu ! Merci d'y avoir joué :)");
+    affiche_texte(3, 0, "Appuyez sur [q] pour quitter, ou continuez à combattre pour vaincre tous les ennemis !");
+    return;
+}
+
+
 /* efface la ligne indiquée dans la zone de texte */
 void efface_ligne_texte(int ligne)
 {

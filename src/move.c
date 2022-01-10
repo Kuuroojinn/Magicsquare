@@ -113,10 +113,7 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_en_haut(*j_ptr, map, END))
 		{
-			efface_zone_texte();
-			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
-			affiche_texte(2, 0, "Merci d'avoir joue a notre jeu :)");
-			affiche_texte(3, 0, "Appuyez sur [q] pour quitter ou vous pouvez continuer en battant tous les ennemis");
+			affiche_texte_fin();
 		}
 	}
 
@@ -139,10 +136,7 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_en_bas(*j_ptr, map, END))
 		{
-			efface_zone_texte();
-			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
-			affiche_texte(2, 0, "Merci d'avoir joue a notre jeu :)");
-			affiche_texte(3, 0, "Appuyez sur [q] pour quitter ou vous pouvez continuer en battant tous les ennemis");
+			affiche_texte_fin();
 		}
 	}
 
@@ -165,10 +159,7 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_a_gauche(*j_ptr, map, END)) 
 		{
-			efface_zone_texte();
-			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
-			affiche_texte(2, 0, "Merci d'avoir joue a notre jeu :)");
-			affiche_texte(3, 0, "Appuyez sur [q] pour quitter ou vous pouvez continuer en battant tous les ennemis");
+			affiche_texte_fin();
 		}
 	}
 
@@ -191,10 +182,7 @@ void deplacement(struct joueur* j_ptr, int map[MAP_LIN][MAP_COL], int inputchar,
 		}
 		else if (test_elt_a_droite(*j_ptr, map, END))
 		{
-			efface_zone_texte();
-			affiche_texte(1, 0, "Bravo, vous avez atteint la fin !");
-			affiche_texte(2, 0, "Merci d'avoir joue a notre jeu :)");
-			affiche_texte(3, 0, "Appuyez sur [q] pour quitter ou vous pouvez continuer en battant tous les ennemis");
+			affiche_texte_fin();
 		}
 	}
 

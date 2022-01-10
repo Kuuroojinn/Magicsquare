@@ -76,8 +76,10 @@ void initialise_salle(struct salle* s)
 void ajoute_salle(struct salle s, int map[MAP_LIN][MAP_COL])
 {
 	// empêche de placer les éléments de la salle à des endroits trop loin dans la map
-	assert(s.pos_lin >= 0 && s.pos_lin + SAL_LIN <= MAP_LIN);
-	assert(s.pos_col >= 0 && s.pos_col + SAL_COL <= MAP_COL);
+	assert(s.pos_lin >= 0);
+	assert(s.pos_lin + SAL_LIN <= MAP_LIN);
+	assert(s.pos_col >= 0);
+	assert(s.pos_col + SAL_COL <= MAP_COL);
 
 
 	for (int lin = 0; lin < SAL_LIN; lin++)  // lignes de la salle
@@ -100,19 +102,28 @@ void creation_salles(int map[MAP_LIN][MAP_COL])
 
 	int seuil_lin = MAP_LIN - SAL_LIN;  // seuil à ne pas dépasser pour ne pas sortir de la map
 	int seuil_col = MAP_COL - SAL_COL;
-	int decalage_lin = SAL_LIN + LONG_COULOIR_V - 2;  // décalage entre les salles (- 2 car le couloir commence dans la salle)
-	int decalage_col = SAL_COL + LONG_COULOIR_H - 2;
+	int decalage_lin = SAL_LIN + LONG_COULOIR_V - 2;  // décalage entre les salles
+	int decalage_col = SAL_COL + LONG_COULOIR_H - 2;  // (- 2 car le couloir commence dans la salle)
 
-	//Change la ligne de la salle actuelle
+	int s_pos_lin_final;  // coordonnées de la dernière salle (pour la porte)
+	int s_pos_col_final;
+
+	// Change la ligne de la salle actuelle
 	for (s.pos_lin = ORI_SALLE1_LIN; s.pos_lin < seuil_lin; s.pos_lin += decalage_lin)
 	{
-		//Change la colonne de la salle actuelle
+		// Change la colonne de la salle actuelle
 		for (s.pos_col = ORI_SALLE1_COL; s.pos_col < seuil_col; s.pos_col += decalage_col)
 		{
 			ajoute_salle(s, map);
+			s_pos_lin_final = s.pos_lin;  // réécrit ces valeurs pour garder les coordonnées
+			s_pos_col_final = s.pos_col;  // de la dernière salle
 		}
-	
 	}
+	// porte de sortie :
+	s.pos_lin = s_pos_lin_final;
+	s.pos_col = s_pos_col_final;
+	s.contenu[SAL_LIN / 2][SAL_COL - 1] = END;  // porte de sortie
+	ajoute_salle(s, map);
 	return;
 }
 
