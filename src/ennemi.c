@@ -84,37 +84,22 @@ bool combat(struct joueur* j, struct ennemi* e)
 	affiche_texte(1, 0, "Etes-vous sûr de vouloir l'affronter ? Oui [o] ou Non [n] : ");
 	scanw("%s", &entree); 
 	
-	//while ((entree != 'o') || (entree != 'n'))
-	//{
-		// DEBUG : 
-		//mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
-		if (entree != 'o')  // pas de combat
-		{
-			efface_ligne_texte(1);
-			affiche_texte(1, 0, "Vous vous enfuyez. L'ennemi ne bronche pas.");
-			return false;
-		}
-		else if (entree == 'o')  // le combat démarre
-		{
-			while ((j->pv > 0) && (e->pv > 0))  // Tant qu'aucun des combattants n'a les pv à 0 ou moins
-			{
-				efface_ligne_texte(0);
-				efface_ligne_texte(1);
-				tour_de_combat(j, e);  // ils s'affrontent
-				
-				// DEBUG :
-				//mvprintw(ZONE_TXT_LIN + 5, ZONE_TXT_COL, "DEBUG : entree = %c", entree);
-			}
-		} 
-		/*else  // entrée invalide --> retirée 
+	if (entree != 'o')  // pas de combat
+	{
+		efface_ligne_texte(1);
+		affiche_texte(1, 0, "Vous vous enfuyez. L'ennemi ne bronche pas.");
+		return false;
+	}
+	else if (entree == 'o')  // le combat démarre
+	{
+		while ((j->pv > 0) && (e->pv > 0))  // Tant qu'aucun des combattants n'a les pv à 0 ou moins
 		{
 			efface_ligne_texte(0);
 			efface_ligne_texte(1);
-			affiche_texte(1, 0, "Alors ? Etes-vous sûr de vouloir l'affronter ? Oui [o] ou Non [n] : ");
-			scanw("%s",&entree);
-		}*/
-	//}
-	
+			tour_de_combat(j, e);  // ils s'affrontent
+		}
+	} 
+
     affiche_texte(0, 0, "Le combat est terminé, et...");
 
 	if (j->pv <= 0) // défaite

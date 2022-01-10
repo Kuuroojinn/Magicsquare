@@ -43,7 +43,7 @@ int main()
 	map1[MAP_LIN-9][MAP_COL-14] = END;  // A modfier, place juste de caractère END dans la salle du bas, c'est juste pour faire mes tests
 
     ajoute_couloirs_h(map1, true);  // true : les ennemis sont présents
-    ajoute_couloirs_v(map1, false);
+    ajoute_couloirs_v(map1, true);
 	
 
 	affiche_bordures();
@@ -52,7 +52,7 @@ int main()
 	affiche_texte(2, 0, "Le but du jeu est d'atteindre la sortie  , située dans la salle en bas à droite. Utilisez les flèches directionnelles pour vous");
 	affiche_char_val(END, ZONE_TXT_LIN + 2, ZONE_TXT_COL + 40);
 	affiche_texte(3, 0, "déplacer sur la carte. Affrontez les ennemis   en suivant les instructions. Bonne chance dans le donjon !");
-	affiche_char_val(ENNEMI, ZONE_TXT_LIN + 3, ZONE_TXT_COL + 45);
+	affiche_char_val(ENNEMI, ZONE_TXT_LIN + 3, ZONE_TXT_COL + 46);
 
 
 
